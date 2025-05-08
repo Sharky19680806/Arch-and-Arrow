@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Arch and Arrow Wedding Cost Calculator</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js "></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background-color: #f4f6f9;
+      color: #333;
+    }
+
+    body.dark {
+      background-color: #1e1e1e;
+      color: #eee;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    h1, h2 {
+      margin-top: 0;
+      font-weight: 500;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .card.dark {
+      background: #2c2c2c;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: 600;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="date"],
+    select,
+    button.lang-select,
+    button.theme-toggle {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      vertical-align: middle;
+    }
+
+    th {
+      background-color: #f0f4f8;
+    }
+
+    .btn {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      margin-right: 10px;
+    }
+
+    .btn:hover {
+      background-color: #0056b3;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .no-print {
+      display: inline-block;
+      margin-top: 10px;
+    }
+
+    @media print {
+      .no-print, .no-print * {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Language & Theme Controls -->
+  <div class="no-print" style="margin-bottom: 20px;">
+    <label for="langSelect">Language:</label>
+    <select id="langSelect" onchange="changeLang()">
+      <option value="en">English</option>
+      <option value="af">Afrikaans</option>
+      <option value="zu">isiZulu</option>
+    </select>
+
+    <button class="btn theme-toggle" onclick="toggleTheme()">Toggle Dark Mode</button>
+  </div>
+
+  <h1 style="text-align:center; margin-bottom: 30px;" data-lang="en">Arch and Arrow Wedding Cost Calculator (ZAR)</h1>
+  <h1 style="text-align:center; margin-bottom: 30px; display:none;" data-lang="af">Arch and Arrow Huwelikskosteberekenaar (ZAR)</h1>
+  <h1 style="text-align:center; margin-bottom: 30px; display:none;" data-lang="zu">Isikhombisa Sokwekweka Imali ye-Wedding yaseArch and Arrow (ZAR)</h1>
+
+  <!-- Project Info -->
+  <div class="card" id="projectInfoCard">
+    <h2 data-lang="en">Project Name & Info</h2>
+    <h2 style="display:none" data-lang="af">Projeknaam & Inligting</h2>
+    <h2 style="display:none" data-lang="zu">Igama Lomthombo & Imininingwane</h2>
+
+    <label data-lang="en">Project Name:</label>
+    <input type="text" id="projectName"/>
+
+    <label data-lang="en">Client Name:</label>
+    <input type="text" id="clientName"/>
+
+    <label data-lang="en">Date:</label>
+    <input type="date" id="weddingDate"/>
+
+    <label data-lang="en">Venue:</label>
+    <input type="text" id="venueName"/>
+
+    <label data-lang="en">Guests:</label>
+    <input type="number" id="guestCount"/>
+  </div>
+
+  <!-- Fixed Costs -->
+  <div class="card" id="fixedCostsCard">
+    <h2 data-lang="en">Fixed Costs (Venue & Overhead)</h2>
+    <h2 style="display:none" data-lang="af">Vaste Koste (Plek & Oorhoofse Koste)</h2>
+    <h2 style="display:none" data-lang="zu">Imali Esetiweyo (Indawo & Iindlela zokusebenzisa)</h2>
+
+    <button class="btn no-print" onclick="toggleSection('fixedCosts')">Toggle Section</button>
+    <div id="fixedCosts">
+      <table id="fixedCostsTable">
+        <thead>
+          <tr>
+            <th data-lang="en">Description</th><th>ZAR</th>
+          </tr>
+          <tr><td>Venue Rental</td><td><input type="number" oninput="updateTotals()" /></td></tr>
+          <tr><td>Permits/Licenses</td><td><input type="number" oninput="updateTotals()" /></td></tr>
+          <tr><td>Insurance</td><td><input type="number" oninput="updateTotals()" /></td></tr>
+          <tr><td>Staffing (Base)</td><td><input type="number" oninput="updateTotals()" /></td></tr>
+          <tr><td>Decor Setup</td><td><input type="number" oninput="updateTotals()" /></td></tr>
+          <tr><td>Miscellaneous Fixed Costs</td><td><input type="number" oninput="updateTotals()" /></td></tr>
+          <tr><th data-lang="en">Total Fixed Costs</th><th id="totalFixed">0</th></tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+
+  <!-- Services -->
+  <div class="card" id="servicesCard">
+    <h2 data-lang="en">Services Offered</h2>
+    <h2 style="display:none" data-lang="af">Dienste Aangebied</h2>
+    <h2 style="display:none" data-lang="zu">Iintshukumo Ezinikezwayo</h2>
+
+    <button class="btn no-print" onclick="addService()">Add Service</button>
+    <button class="btn no-print" onclick="toggleSection('servicesTableWrapper')">Toggle Section</button>
+    <div id="servicesTableWrapper">
+      <table id="servicesTable">
+        <thead>
+          <tr>
+            <th data-lang="en">Service</th>
+            <th data-lang="en">Units</th>
+            <th data-lang="en">Unit Cost (ZAR)</th>
+            <th data-lang="en">Total Cost (ZAR)</th>
+            <th data-lang="en">Markup Type</th>
+            <th data-lang="en">Markup Value</th>
+            <th data-lang="en">Price per Unit (ZAR)</th>
+            <th data-lang="en">Revenue (ZAR)</th>
+            <th data-lang="en">Margin per Unit (ZAR)</th>
+            <th data-lang="en">Total Margin (ZAR)</th>
+          </tr>
+        </thead>
+        <tbody id="serviceRows">
+          <!-- Default services here -->
+        </tbody>
+        <tfoot>
+          <tr>
+            <th colspan="2" data-lang="en">Totals:</th>
+            <th id="sumUnitCost">0</th>
+            <th id="sumTotalCost">0</th>
+            <th></th>
+            <th></th>
+            <th id="sumRevenue">0</th>
+            <th></th>
+            <th id="sumTotalMargin">0</th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+  <!-- Summary -->
+  <div class="card" id="summaryCard">
+    <h2 data-lang="en">Summary & Profit Overview</h2>
+    <h2 style="display:none" data-lang="af">Opsomming en Wins Oorsig</h2>
+    <h2 style="display:none" data-lang="zu">Ukuphawula nokungcono</h2>
+
+    <table class="summary-table">
+      <tr>
+        <td data-lang="en">Total Fixed Costs</td>
+        <td id="summaryFixed">0</td>
+      </tr>
+      <tr>
+        <td data-lang="en">Total Variable Costs</td>
+        <td id="summaryVariable">0</td>
+      </tr>
+      <tr>
+        <td data-lang="en">Total Costs</td>
+        <td id="summaryTotalCosts">0</td>
+      </tr>
+      <tr>
+        <td data-lang="en">Total Revenue</td>
+        <td id="summaryRevenue">0</td>
+      </tr>
+      <tr>
+        <td data-lang="en">Gross Profit</td>
+        <td id="summaryProfit">0</td>
+      </tr>
+      <tr>
+        <td data-lang="en">Profit Margin (%)</td>
+        <td id="summaryMargin">0%</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Actions -->
+  <div class="card no-print">
+    <button class="btn" onclick="saveProject()">Save Project</button>
+    <button class="btn" onclick="loadProject()">Load Project</button>
+    <button class="btn" onclick="generateQuote()">Generate Quote</button>
+    <button class="btn" onclick="downloadPDF()">Download PDF</button>
+  </div>
+
+</div>
+
+<!-- Printable Quote Template -->
+<div id="quoteTemplate" class="print-section hidden">
+  <h1 style="text-align:center;">Arch and Arrow Wedding Services</h1>
+  <h2 style="text-align:center;" id="quoteTitle"></h2>
+  <p><strong data-lang="en">Client:</strong> <span id="quoteClient"></span></p>
+  <p><strong data-lang="en">Date:</strong> <span id="quoteDate"></span></p>
+  <p><strong data-lang="en">Venue:</strong> <span id="quoteVenue"></span></p>
+  <p><strong data-lang="en">Guests:</strong> <span id="quoteGuests"></span></p>
+
+  <h3 data-lang="en">Services Offered</h3>
+  <table id="quoteServicesTable" border="1" style="width:100%; border-collapse:collapse;">
+    <thead>
+      <tr>
+        <th>Service</th>
+        <th>Units</th>
+        <th>Unit Cost (ZAR)</th>
+        <th>Total Cost (ZAR)</th>
+        <th>Price per Unit (ZAR)</th>
+        <th>Revenue (ZAR)</th>
+      </tr>
+    </thead>
+    <tbody id="quoteServicesBody"></tbody>
+  </table>
+
+  <h3 data-lang="en">Summary</h3>
+  <table border="1" style="width:100%; border-collapse:collapse;">
+    <tr><td data-lang="en">Total Fixed Costs</td><td id="quoteFixed"></td></tr>
+    <tr><td data-lang="en">Total Variable Costs</td><td id="quoteVariable"></td></tr>
+    <tr><td data-lang="en">Total Costs</td><td id="quoteTotalCosts"></td></tr>
+    <tr><td data-lang="en">Total Revenue</td><td id="quoteRevenue"></td></tr>
+    <tr><td data-lang="en">Gross Profit</td><td id="quoteProfit"></td></tr>
+    <tr><td data-lang="en">Profit Margin (%)</td><td id="quoteMargin"></td></tr>
+  </table>
+
+  <p style="margin-top: 30px;"><strong>Note:</strong> This quote is valid for 30 days from the date above.</p>
+</div>
+
+<script>
+  // Sample services
+  const defaultServices = [
+    { service: "Photography", units: 1, unitCost: 500, markupType: "percent", markupValue: 30 },
+    { service: "Videography", units: 1, unitCost: 800, markupType: "percent", markupValue: 40 },
+    { service: "Ceremony Arch Setup", units: 1, unitCost: 1200, markupType: "percent", markupValue: 20 },
+    { service: "Guest Experience Package", units: 50, unitCost: 15, markupType: "fixed", markupValue: 5 },
+    { service: "Officiant Coordination", units: 1, unitCost: 300, markupType: "fixed", markupValue: 20 },
+    { service: "Décor Styling", units: 1, unitCost: 1000, markupType: "percent", markupValue: 25 },
+    { service: "Sound System", units: 1, unitCost: 700, markupType: "percent", markupValue: 15 },
+    { service: "Floral Arrangements", units: 1, unitCost: 900, markupType: "percent", markupValue: 30 },
+    { service: "Guest Favours", units: 50, unitCost: 10, markupType: "fixed", markupValue: 5 },
+    { service: "Gin Bar Service", units: 1, unitCost: 1500, markupType: "percent", markupValue: 20 }
+  ];
+
+  function populateDefaultServices() {
+    const tbody = document.getElementById("serviceRows");
+    defaultServices.forEach(s => {
+      const row = tbody.insertRow();
+      row.innerHTML = `
+        <td><input type="text" value="${s.service}"/></td>
+        <td><input type="number" value="${s.units}" oninput="updateService(this)" /></td>
+        <td><input type="number" value="${s.unitCost}" oninput="updateService(this)" /></td>
+        <td class="totalCost">0</td>
+        <td>
+          <select onchange="updateService(this)">
+            <option value="percent">% Markup</option>
+            <option value="fixed">ZAR Markup</option>
+          </select>
+        </td>
+        <td><input type="number" value="${s.markupValue}" oninput="updateService(this)" /></td>
+        <td class="pricePer">0</td>
+        <td class="revenue">0</td>
+        <td class="marginPer">0</td>
+        <td class="totalMargin">0</td>
+      `;
+      const select = row.querySelector("select");
+      select.value = s.markupType;
+    });
+  }
+
+  function updateService(input) {
+    const row = input.closest("tr");
+    const units = parseFloat(row.cells[1].children[0].value) || 0;
+    const unitCost = parseFloat(row.cells[2].children[0].value) || 0;
+    const markupType = row.cells[4].children[0].value;
+    const markupValue = parseFloat(row.cells[5].children[0].value) || 0;
+
+    let pricePerUnit = unitCost;
+    if (markupType === "percent") {
+      pricePerUnit += unitCost * (markupValue / 100);
+    } else {
+      pricePerUnit += markupValue;
+    }
+
+    const totalCost = units * unitCost;
+    const revenue = units * pricePerUnit;
+    const marginPer = pricePerUnit - unitCost;
+    const totalMargin = revenue - totalCost;
+
+    row.cells[3].textContent = totalCost.toFixed(2);
+    row.cells[6].textContent = pricePerUnit.toFixed(2);
+    row.cells[7].textContent = revenue.toFixed(2);
+    row.cells[8].textContent = marginPer.toFixed(2);
+    row.cells[9].textContent = totalMargin.toFixed(2);
+
+    updateTotals();
+  }
+
+  function updateTotals() {
+    let fixedSum = 0;
+    document.querySelectorAll("#fixedCostsTable tbody tr input").forEach(input => {
+      fixedSum += parseFloat(input.value) || 0;
+    });
+    document.getElementById("totalFixed").textContent = fixedSum.toFixed(2);
+    document.getElementById("summaryFixed").textContent = fixedSum.toFixed(2);
+
+    let sumUnitCost = 0, sumTotalCost = 0, sumRevenue = 0, sumTotalMargin = 0;
+    const rows = document.querySelectorAll("#servicesTable tbody tr");
+
+    rows.forEach(row => {
+      sumUnitCost += parseFloat(row.cells[2].children[0].value) || 0;
+      sumTotalCost += parseFloat(row.cells[3].textContent) || 0;
+      sumRevenue += parseFloat(row.cells[7].textContent) || 0;
+      sumTotalMargin += parseFloat(row.cells[9].textContent) || 0;
+    });
+
+    document.getElementById("sumUnitCost").textContent = sumUnitCost.toFixed(2);
+    document.getElementById("sumTotalCost").textContent = sumTotalCost.toFixed(2);
+    document.getElementById("sumRevenue").textContent = sumRevenue.toFixed(2);
+    document.getElementById("sumTotalMargin").textContent = sumTotalMargin.toFixed(2);
+
+    const totalCosts = fixedSum + sumTotalCost;
+    const profit = sumRevenue - totalCosts;
+    const marginPercent = profit / sumRevenue * 100 || 0;
+
+    document.getElementById("summaryVariable").textContent = sumTotalCost.toFixed(2);
+    document.getElementById("summaryTotalCosts").textContent = totalCosts.toFixed(2);
+    document.getElementById("summaryRevenue").textContent = sumRevenue.toFixed(2);
+    document.getElementById("summaryProfit").textContent = profit.toFixed(2);
+    document.getElementById("summaryMargin").textContent = marginPercent.toFixed(2) + "%";
+  }
+
+  function toggleSection(id) {
+    document.getElementById(id).classList.toggle("hidden");
+  }
+
+  function saveProject() {
+    const project = {
+      projectName: document.getElementById("projectName").value,
+      clientName: document.getElementById("clientName").value,
+      weddingDate: document.getElementById("weddingDate").value,
+      venueName: document.getElementById("venueName").value,
+      guestCount: document.getElementById("guestCount").value,
+      fixedCosts: [],
+      services: []
+    };
+
+    document.querySelectorAll("#fixedCostsTable tbody tr input").forEach(input => {
+      project.fixedCosts.push(input.value);
+    });
+
+    document.querySelectorAll("#servicesTable tbody tr").forEach(row => {
+      project.services.push({
+        service: row.cells[0].children[0].value,
+        units: row.cells[1].children[0].value,
+        unitCost: row.cells[2].children[0].value,
+        markupType: row.cells[4].children[0].value,
+        markupValue: row.cells[5].children[0].value
+      });
+    });
+
+    localStorage.setItem("arch_arrow_wedding_project", JSON.stringify(project));
+    alert("Project saved!");
+  }
+
+  function loadProject() {
+    const data = localStorage.getItem("arch_arrow_wedding_project");
+    if (!data) return alert("No saved project found.");
+    const project = JSON.parse(data);
+
+    document.getElementById("projectName").value = project.projectName;
+    document.getElementById("clientName").value = project.clientName;
+    document.getElementById("weddingDate").value = project.weddingDate;
+    document.getElementById("venueName").value = project.venueName;
+    document.getElementById("guestCount").value = project.guestCount;
+
+    document.querySelectorAll("#fixedCostsTable tbody tr input").forEach((input, i) => {
+      input.value = project.fixedCosts[i] || '';
+    });
+
+    const serviceBody = document.querySelector("#servicesTable tbody");
+    while (serviceBody.rows.length > 0) {
+      serviceBody.deleteRow(0);
+    }
+
+    project.services.forEach(service => {
+      const row = serviceBody.insertRow();
+      row.innerHTML = `
+        <td><input type="text" value="${service.service}"/></td>
+        <td><input type="number" value="${service.units}" oninput="updateService(this)" /></td>
+        <td><input type="number" value="${service.unitCost}" oninput="updateService(this)" /></td>
+        <td class="totalCost">0</td>
+        <td>
+          <select onchange="updateService(this)">
+            <option value="percent" ${service.markupType === 'percent' ? 'selected' : ''}>%</option>
+            <option value="fixed" ${service.markupType === 'fixed' ? 'selected' : ''}>ZAR</option>
+          </select>
+        </td>
+        <td><input type="number" value="${service.markupValue}" oninput="updateService(this)"/></td>
+        <td class="pricePer">0</td>
+        <td class="revenue">0</td>
+        <td class="marginPer">0</td>
+        <td class="totalMargin">0</td>
+      `;
+    });
+
+    updateTotals();
+  }
+
+  function generateQuote() {
+    const projectName = document.getElementById("projectName").value || "Wedding Quote";
+    const clientName = document.getElementById("clientName").value || "N/A";
+    const date = document.getElementById("weddingDate").value || "N/A";
+    const venue = document.getElementById("venueName").value || "N/A";
+    const guests = document.getElementById("guestCount").value || "0";
+
+    document.getElementById("quoteTitle").innerText = projectName;
+    document.getElementById("quoteClient").innerText = clientName;
+    document.getElementById("quoteDate").innerText = date;
+    document.getElementById("quoteVenue").innerText = venue;
+    document.getElementById("quoteGuests").innerText = guests;
+
+    const quoteBody = document.getElementById("quoteServicesBody");
+    quoteBody.innerHTML = "";
+    document.querySelectorAll("#servicesTable tbody tr").forEach(row => {
+      const cells = row.children;
+      const newRow = quoteBody.insertRow();
+      [0, 1, 2, 3, 6, 7].forEach(i => {
+        const cell = newRow.insertCell();
+        cell.textContent = cells[i].innerText || cells[i].textContent;
+      });
+    });
+
+    document.getElementById("quoteFixed").innerText = document.getElementById("summaryFixed").innerText;
+    document.getElementById("quoteVariable").innerText = document.getElementById("summaryVariable").innerText;
+    document.getElementById("quoteTotalCosts").innerText = document.getElementById("summaryTotalCosts").innerText;
+    document.getElementById("quoteRevenue").innerText = document.getElementById("summaryRevenue").innerText;
+    document.getElementById("quoteProfit").innerText = document.getElementById("summaryProfit").innerText;
+    document.getElementById("quoteMargin").innerText = document.getElementById("summaryMargin").innerText;
+
+    document.getElementById("quoteTemplate").classList.remove("hidden");
+  }
+
+  async function downloadPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    const title = document.getElementById("quoteTitle").innerText;
+    const client = document.getElementById("quoteClient").innerText;
+    const date = document.getElementById("quoteDate").innerText;
+    const venue = document.getElementById("quoteVenue").innerText;
+    const guests = document.getElementById("quoteGuests").innerText;
+
+    doc.setFontSize(16);
+    doc.text("Arch and Arrow Wedding Services", 105, 20, null, null, "center");
+    doc.setFontSize(14);
+    doc.text(title, 105, 30, null, null, "center");
+    doc.setFontSize(12);
+    doc.text(`Client: ${client}`, 20, 45);
+    doc.text(`Date: ${date}`, 20, 55);
+    doc.text(`Venue: ${venue}`, 20, 65);
+    doc.text(`Guests: ${guests}`, 20, 75);
+
+    const tableData = [];
+    document.querySelectorAll("#quoteServicesTable tbody tr").forEach(row => {
+      const cols = Array.from(row.children).map(cell => cell.innerText);
+      tableData.push(cols);
+    });
+
+    doc.autoTable({
+      head: [[
+        "Service", "Units", "Unit Cost", "Total Cost", "Price per Unit", "Revenue"
+      ]],
+      body: tableData,
+      startY: 85
+    });
+
+    const finalY = doc.lastAutoTable.finalY + 10;
+    doc.text(`Total Fixed Costs: R${document.getElementById("quoteFixed").innerText}`, 20, finalY);
+    doc.text(`Total Variable Costs: R${document.getElementById("quoteVariable").innerText}`, 20, finalY + 10);
+    doc.text(`Total Costs: R${document.getElementById("quoteTotalCosts").innerText}`, 20, finalY + 20);
+    doc.text(`Total Revenue: R${document.getElementById("quoteRevenue").innerText}`, 20, finalY + 30);
+    doc.text(`Gross Profit: R${document.getElementById("quoteProfit").innerText}`, 20, finalY + 40);
+    doc.text(`Profit Margin (%): ${document.getElementById("quoteMargin").innerText}`, 20, finalY + 50);
+
+    doc.save(`${title}_Quote.pdf`);
+  }
+
+  function toggleTheme() {
+    document.body.classList.toggle("dark");
+    document.querySelectorAll(".card").forEach(c => c.classList.toggle("dark"));
+  }
+
+  function changeLang() {
+    const lang = document.getElementById("langSelect").value;
+    document.querySelectorAll("[data-lang]").forEach(el => el.style.display = "none");
+    document.querySelectorAll(`[data-lang='${lang}']`).forEach(el => el.style.display = "inline");
+  }
+
+  function addService() {
+    const table = document.querySelector("#servicesTable tbody");
+    const newRow = table.insertRow();
+    newRow.innerHTML = `
+      <td><input type="text"/></td>
+      <td><input type="number" value="1" oninput="updateService(this)"/></td>
+      <td><input type="number" value="0" oninput="updateService(this)"/></td>
+      <td class="totalCost">0</td>
+      <td>
+        <select onchange="updateService(this)">
+          <option value="percent">%</option>
+          <option value="fixed">ZAR</option>
+        </select>
+      </td>
+      <td><input type="number" value="0" oninput="updateService(this)"/></td>
+      <td class="pricePer">0</td>
+      <td class="revenue">0</td>
+      <td class="marginPer">0</td>
+      <td class="totalMargin">0</td>
+    `;
+  }
+
+  window.onload = () => {
+    populateDefaultServices();
+    updateTotals();
+  };
+</script>
+
+</body>
+</html>
