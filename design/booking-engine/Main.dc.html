@@ -1,0 +1,492 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gilda+Display&family=Karla:wght@400;500;600;700&display=swap">
+  <style>
+    body { margin: 0; background: #FAF6F0; font-family: 'Karla', 'Helvetica Neue', Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #9C5A40; text-decoration: none; }
+    a:hover { color: #7C4531; }
+    * { box-sizing: border-box; }
+    button { font-family: inherit; cursor: pointer; }
+    input, textarea, select { font-family: inherit; }
+  </style>
+</helmet>
+
+<div style="width: 1180px; min-height: 1060px; background: #FAF6F0; color: #241F1B; display: flex; flex-direction: column;">
+
+  <!-- Masthead -->
+  <div style="display: flex; align-items: center; justify-content: space-between; padding: 22px 48px; border-bottom: 1px solid #E4DCD1; background: #FAF6F0;">
+    <div style="display: flex; align-items: baseline; gap: 12px;">
+      <span style="font-family: 'Gilda Display', Georgia, serif; font-size: 25px; letter-spacing: 0.16em; text-transform: uppercase;">Arch &amp; Arrow</span>
+      <span style="font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: #8B8078;">Weddings &middot; Western Cape</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 28px;">
+      <span style="font-size: 13px; color: #6B615A;">[VENUE PHONE]</span>
+      <span style="font-size: 13px; color: #6B615A;">EN &nbsp;/&nbsp; AF &nbsp;/&nbsp; ZU</span>
+    </div>
+  </div>
+
+  <!-- Step rail -->
+  <div style="padding: 26px 48px 0 48px;">
+    <div style="display: flex; align-items: center; gap: 0;">
+      <sc-for list="{{steps}}" as="step" hint-placeholder-count="4">
+        <div style="display: flex; align-items: center; flex-grow: 1;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <div style="width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; border: 1px solid {{step.dotBorder}}; background: {{step.dotBg}}; color: {{step.dotInk}};">{{step.num}}</div>
+            <span style="font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: {{step.labelInk}};">{{step.label}}</span>
+          </div>
+          <div style="flex-grow: 1; height: 1px; margin: 0 16px; background: {{step.railBg}};"></div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div style="display: grid; grid-template-columns: 1fr 372px; gap: 36px; padding: 32px 48px 44px 48px; align-items: start; flex-grow: 1;">
+
+    <!-- Left: step panel -->
+    <div style="background: #FFFFFF; border: 1px solid #E4DCD1; min-height: 760px; padding: 40px;">
+
+      <!-- STEP 1 — DATE -->
+      <sc-if value="{{isDate}}" hint-placeholder-val="{{true}}">
+        <div>
+          <p style="margin: 0 0 6px 0; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: #9C5A40;">Step one</p>
+          <h2 style="margin: 0 0 10px 0; font-family: 'Gilda Display', Georgia, serif; font-size: 34px; font-weight: 400; line-height: 1.15;">Choose your date</h2>
+          <p style="margin: 0 0 28px 0; font-size: 15px; line-height: 1.6; color: #6B615A; max-width: 46ch; text-wrap: pretty;">Saturdays book out roughly eighteen months ahead. Weekday and Friday celebrations carry a reduced venue fee.</p>
+
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px;">
+            <div style="display: flex; align-items: center; gap: 16px;">
+              <button onClick="{{prevMonth}}" style="width: 44px; height: 44px; border: 1px solid #E4DCD1; background: #FFFFFF; color: #241F1B; display: flex; align-items: center; justify-content: center;" aria-label="Previous month">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg>
+              </button>
+              <span style="font-family: 'Gilda Display', Georgia, serif; font-size: 22px; min-width: 190px; text-align: center;">{{monthLabel}}</span>
+              <button onClick="{{nextMonth}}" style="width: 44px; height: 44px; border: 1px solid #E4DCD1; background: #FFFFFF; color: #241F1B; display: flex; align-items: center; justify-content: center;" aria-label="Next month">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"></path></svg>
+              </button>
+            </div>
+            <div style="display: flex; align-items: center; gap: 18px; font-size: 12px; color: #6B615A;">
+              <span style="display: flex; align-items: center; gap: 7px;"><span style="width: 10px; height: 10px; background: #FFFFFF; border: 1px solid #C6B9A8;"></span>Available</span>
+              <span style="display: flex; align-items: center; gap: 7px;"><span style="width: 10px; height: 10px; background: #F0E7DA; border: 1px solid #DCCDB8;"></span>On hold</span>
+              <span style="display: flex; align-items: center; gap: 7px;"><span style="width: 10px; height: 10px; background: #EFEBE5; border: 1px solid #E4DCD1;"></span>Taken</span>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px;">
+            <sc-for list="{{weekdayNames}}" as="wd" hint-placeholder-count="7">
+              <div style="text-align: center; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #A29488;">{{wd}}</div>
+            </sc-for>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px; margin-top: 8px;">
+            <sc-for list="{{cells}}" as="cell" hint-placeholder-count="35">
+              <button onClick="{{cell.pick}}" style="height: 58px; border: 1px solid {{cell.border}}; background: {{cell.bg}}; color: {{cell.ink}}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 0;">
+                <span style="font-size: 15px; font-weight: {{cell.weight}};">{{cell.day}}</span>
+                <span style="font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: {{cell.tagInk}};">{{cell.tag}}</span>
+              </button>
+            </sc-for>
+          </div>
+
+          <div style="margin-top: 34px; padding-top: 28px; border-top: 1px solid #EFE9E0; display: flex; align-items: center; justify-content: space-between;">
+            <div>
+              <p style="margin: 0 0 4px 0; font-size: 15px; font-weight: 600;">Guests</p>
+              <p style="margin: 0; font-size: 13px; color: #6B615A;">The barn seats 180 for a plated dinner.</p>
+            </div>
+            <div style="display: flex; align-items: center; gap: 4px;">
+              <button onClick="{{fewerGuests}}" style="width: 46px; height: 46px; border: 1px solid #E4DCD1; background: #FFFFFF; color: #241F1B; font-size: 20px; line-height: 1;">&minus;</button>
+              <span style="width: 84px; text-align: center; font-family: 'Gilda Display', Georgia, serif; font-size: 26px;">{{guests}}</span>
+              <button onClick="{{moreGuests}}" style="width: 46px; height: 46px; border: 1px solid #E4DCD1; background: #FFFFFF; color: #241F1B; font-size: 20px; line-height: 1;">+</button>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- STEP 2 — PACKAGE -->
+      <sc-if value="{{isPackage}}" hint-placeholder-val="{{false}}">
+        <div>
+          <p style="margin: 0 0 6px 0; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: #9C5A40;">Step two</p>
+          <h2 style="margin: 0 0 10px 0; font-family: 'Gilda Display', Georgia, serif; font-size: 34px; font-weight: 400; line-height: 1.15;">Shape the day</h2>
+          <p style="margin: 0 0 28px 0; font-size: 15px; line-height: 1.6; color: #6B615A; max-width: 46ch; text-wrap: pretty;">Every package includes the ceremony lawn, the barn, tables, Tiffany chairs and a venue manager on the day.</p>
+
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <sc-for list="{{packages}}" as="pk" hint-placeholder-count="3">
+              <button onClick="{{pk.pick}}" style="text-align: left; padding: 22px 24px; border: 1px solid {{pk.border}}; background: {{pk.bg}}; display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: center; width: 100%;">
+                <div>
+                  <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+                    <span style="font-family: 'Gilda Display', Georgia, serif; font-size: 21px; color: #241F1B;">{{pk.name}}</span>
+                    <span style="font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #9C5A40;">{{pk.badge}}</span>
+                  </div>
+                  <p style="margin: 0; font-size: 14px; line-height: 1.55; color: #6B615A;">{{pk.blurb}}</p>
+                </div>
+                <div style="text-align: right;">
+                  <div style="font-size: 19px; font-weight: 600; color: #241F1B;">{{pk.price}}</div>
+                  <div style="font-size: 12px; color: #8B8078;">venue fee</div>
+                </div>
+              </button>
+            </sc-for>
+          </div>
+
+          <p style="margin: 34px 0 14px 0; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #8B8078;">Add to it</p>
+          <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px;">
+            <sc-for list="{{addons}}" as="ad" hint-placeholder-count="4">
+              <button onClick="{{ad.toggle}}" style="text-align: left; padding: 16px 18px; border: 1px solid {{ad.border}}; background: {{ad.bg}}; display: flex; align-items: center; gap: 14px; width: 100%;">
+                <span style="width: 20px; height: 20px; border: 1px solid {{ad.boxBorder}}; background: {{ad.boxBg}}; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="{{ad.tickInk}}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>
+                </span>
+                <span style="flex-grow: 1;">
+                  <span style="display: block; font-size: 14px; font-weight: 500; color: #241F1B;">{{ad.name}}</span>
+                  <span style="display: block; font-size: 13px; color: #8B8078;">{{ad.price}}</span>
+                </span>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- STEP 3 — DETAILS -->
+      <sc-if value="{{isDetails}}" hint-placeholder-val="{{false}}">
+        <div>
+          <p style="margin: 0 0 6px 0; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: #9C5A40;">Step three</p>
+          <h2 style="margin: 0 0 10px 0; font-family: 'Gilda Display', Georgia, serif; font-size: 34px; font-weight: 400; line-height: 1.15;">Tell us who you are</h2>
+          <p style="margin: 0 0 30px 0; font-size: 15px; line-height: 1.6; color: #6B615A; max-width: 46ch; text-wrap: pretty;">We reply within one working day with a costed proposal. Nothing is charged at this stage.</p>
+
+          <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px;">
+            <label style="display: flex; flex-direction: column; gap: 8px;">
+              <span style="font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #6B615A;">Your name</span>
+              <input type="text" placeholder="Thandi Nkosi" style="height: 48px; padding: 0 14px; border: 1px solid #E4DCD1; background: #FDFBF8; font-size: 15px; color: #241F1B;">
+            </label>
+            <label style="display: flex; flex-direction: column; gap: 8px;">
+              <span style="font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #6B615A;">Partner's name</span>
+              <input type="text" placeholder="Sam Fourie" style="height: 48px; padding: 0 14px; border: 1px solid #E4DCD1; background: #FDFBF8; font-size: 15px; color: #241F1B;">
+            </label>
+            <label style="display: flex; flex-direction: column; gap: 8px;">
+              <span style="font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #6B615A;">Email</span>
+              <input type="text" placeholder="you@email.co.za" style="height: 48px; padding: 0 14px; border: 1px solid #E4DCD1; background: #FDFBF8; font-size: 15px; color: #241F1B;">
+            </label>
+            <label style="display: flex; flex-direction: column; gap: 8px;">
+              <span style="font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #6B615A;">Mobile</span>
+              <input type="text" placeholder="072 000 0000" style="height: 48px; padding: 0 14px; border: 1px solid #E4DCD1; background: #FDFBF8; font-size: 15px; color: #241F1B;">
+            </label>
+          </div>
+
+          <div style="margin-top: 22px;">
+            <p style="margin: 0 0 10px 0; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #6B615A;">Correspond with us in</p>
+            <div style="display: flex; gap: 10px;">
+              <sc-for list="{{languages}}" as="lg" hint-placeholder-count="3">
+                <button onClick="{{lg.pick}}" style="height: 46px; padding: 0 22px; border: 1px solid {{lg.border}}; background: {{lg.bg}}; color: {{lg.ink}}; font-size: 14px; letter-spacing: 0.04em;">{{lg.name}}</button>
+              </sc-for>
+            </div>
+          </div>
+
+          <label style="display: flex; flex-direction: column; gap: 8px; margin-top: 22px;">
+            <span style="font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #6B615A;">Anything we should know</span>
+            <textarea placeholder="Traditional ceremony in the morning, Western reception from four. Roughly forty guests travelling from Gauteng." style="height: 112px; padding: 14px; border: 1px solid #E4DCD1; background: #FDFBF8; font-size: 15px; line-height: 1.6; color: #241F1B; resize: none;"></textarea>
+          </label>
+        </div>
+      </sc-if>
+
+      <!-- STEP 4 — HOLD -->
+      <sc-if value="{{isHold}}" hint-placeholder-val="{{false}}">
+        <div>
+          <p style="margin: 0 0 6px 0; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: #9C5A40;">Step four</p>
+          <h2 style="margin: 0 0 10px 0; font-family: 'Gilda Display', Georgia, serif; font-size: 34px; font-weight: 400; line-height: 1.15;">Hold the date</h2>
+          <p style="margin: 0 0 30px 0; font-size: 15px; line-height: 1.6; color: #6B615A; max-width: 48ch; text-wrap: pretty;">We take the date off the calendar for seven days while you read the proposal. No card, no deposit, no obligation.</p>
+
+          <div style="border: 1px solid #E4DCD1; background: #FDFBF8;">
+            <sc-for list="{{review}}" as="row" hint-placeholder-count="5">
+              <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 24px; padding: 18px 24px; border-bottom: 1px solid #EFE9E0;">
+                <span style="font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #8B8078;">{{row.label}}</span>
+                <span style="font-size: 16px; text-align: right; color: #241F1B;">{{row.value}}</span>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="margin-top: 26px; padding: 20px 24px; border-left: 2px solid #9C5A40; background: #F6EFE6;">
+            <p style="margin: 0 0 6px 0; font-size: 14px; font-weight: 600;">What happens next</p>
+            <p style="margin: 0; font-size: 14px; line-height: 1.65; color: #5F564F; max-width: 60ch; text-wrap: pretty;">Your hold lands with us immediately. We send a costed proposal within one working day, and the date stays yours until <strong style="font-weight: 600;">{{holdUntil}}</strong>. To confirm, we ask for a 25% deposit &mdash; the balance is due thirty days before the wedding.</p>
+          </div>
+        </div>
+      </sc-if>
+
+    </div>
+
+    <!-- Right: running summary -->
+    <div style="background: #FFFFFF; border: 1px solid #E4DCD1; padding: 30px 28px;">
+      <p style="margin: 0 0 18px 0; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: #8B8078;">Your enquiry</p>
+
+      <div style="padding-bottom: 20px; border-bottom: 1px solid #EFE9E0;">
+        <div style="font-family: 'Gilda Display', Georgia, serif; font-size: 27px; line-height: 1.25;">{{dateHeadline}}</div>
+        <div style="margin-top: 6px; font-size: 14px; color: #6B615A;">{{dateSub}}</div>
+      </div>
+
+      <div style="padding: 20px 0; border-bottom: 1px solid #EFE9E0; display: flex; flex-direction: column; gap: 12px;">
+        <sc-for list="{{summaryLines}}" as="line" hint-placeholder-count="3">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px;">
+            <span style="font-size: 14px; color: {{line.ink}};">{{line.label}}</span>
+            <span style="font-size: 14px; font-weight: 500; color: {{line.ink}}; text-align: right;">{{line.value}}</span>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="padding: 20px 0 4px 0;">
+        <div style="display: flex; align-items: baseline; justify-content: space-between;">
+          <span style="font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: #6B615A;">Estimate</span>
+          <span style="font-family: 'Gilda Display', Georgia, serif; font-size: 30px; color: {{accent}};">{{total}}</span>
+        </div>
+        <p style="margin: 8px 0 0 0; font-size: 12px; line-height: 1.55; color: #8B8078;">Indicative, incl. VAT. Catering is quoted per head once the menu is set.</p>
+      </div>
+
+      <button onClick="{{advance}}" style="width: 100%; height: 54px; margin-top: 22px; border: none; background: {{accent}}; color: #FFFFFF; font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600;">{{ctaLabel}}</button>
+      <button onClick="{{goBack}}" style="width: 100%; height: 46px; margin-top: 8px; border: none; background: transparent; color: #6B615A; font-size: 13px; letter-spacing: 0.08em;">{{backLabel}}</button>
+
+      <p style="margin: 18px 0 0 0; font-size: 12px; line-height: 1.6; color: #8B8078; text-align: center;">Prefer to talk it through? [VENUE PHONE] &middot; Tue&ndash;Sat</p>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+
+<script data-dc-script data-props='{"accent":{"editor":"color","default":"#9C5A40","options":["#9C5A40","#5C7358","#3F4A5B","#8A7B4F"],"section":"Theme"}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      step: 0,
+      monthIndex: 0,
+      picked: 28,
+      guests: 120,
+      pkg: 'full',
+      addons: { welcome: true, coord: false, fire: false, bus: false },
+      lang: 'en'
+    };
+  }
+
+  months() {
+    return [
+      { name: 'November 2026', lead: 6, days: 30, booked: [7, 21], held: [14] },
+      { name: 'December 2026', lead: 1, days: 31, booked: [5, 12, 19], held: [26] },
+      { name: 'January 2027', lead: 4, days: 31, booked: [16], held: [] }
+    ];
+  }
+
+  packageList() {
+    return [
+      { id: 'ceremony', name: 'Ceremony only', badge: '', price: 38000, blurb: 'Lawn ceremony, two hours on site, chairs and arch. Photographs on the vineyard track.' },
+      { id: 'full', name: 'The full day', badge: 'Most chosen', price: 74000, blurb: 'Ceremony through to midnight. Barn, bridal suite, ten-hour venue hire and the manager on the day.' },
+      { id: 'weekend', name: 'Weekend takeover', badge: '', price: 128000, blurb: 'Friday setup, Saturday wedding, Sunday breakfast. The farm cottages sleep twenty-two.' }
+    ];
+  }
+
+  addonList() {
+    return [
+      { id: 'welcome', name: 'Friday welcome dinner', price: 'R 12 500' },
+      { id: 'coord', name: 'On-the-day coordinator', price: 'R 9 800' },
+      { id: 'fire', name: 'Fire pit &amp; late bar', price: 'R 6 400' },
+      { id: 'bus', name: 'Guest shuttle to Stellenbosch', price: 'R 7 200' }
+    ];
+  }
+
+  rand(n) {
+    var s = String(Math.round(n));
+    var out = '';
+    for (var i = 0; i < s.length; i++) {
+      if (i > 0 && (s.length - i) % 3 === 0) { out += ' '; }
+      out += s[i];
+    }
+    return 'R ' + out;
+  }
+
+  dayName(month, day) {
+    var m = this.months()[month];
+    var idx = (m.lead + day - 1) % 7;
+    return ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][idx];
+  }
+
+  dayState(month, day) {
+    var m = this.months()[month];
+    if (m.booked.indexOf(day) >= 0) { return 'taken'; }
+    if (m.held.indexOf(day) >= 0) { return 'held'; }
+    return 'open';
+  }
+
+  isWeekday(month, day) {
+    var d = this.dayName(month, day);
+    return d !== 'Sat' && d !== 'Fri';
+  }
+
+  venueFee() {
+    var pk = this.packageList().filter(function (p) { return p.id === this.state.pkg; }.bind(this))[0];
+    var base = pk ? pk.price : 0;
+    if (this.isWeekday(this.state.monthIndex, this.state.picked)) { base = base * 0.85; }
+    return Math.round(base / 100) * 100;
+  }
+
+  addonFee() {
+    var prices = { welcome: 12500, coord: 9800, fire: 6400, bus: 7200 };
+    var sum = 0;
+    var a = this.state.addons;
+    Object.keys(prices).forEach(function (k) { if (a[k]) { sum += prices[k]; } });
+    return sum;
+  }
+
+  cateringFee() { return this.state.guests * 685; }
+
+  renderVals() {
+    var self = this;
+    var accent = this.props.accent || '#9C5A40';
+    var s = this.state;
+    var m = this.months()[s.monthIndex];
+
+    var stepDefs = [
+      { num: '1', label: 'Date' },
+      { num: '2', label: 'Package' },
+      { num: '3', label: 'Details' },
+      { num: '4', label: 'Hold' }
+    ];
+    var steps = stepDefs.map(function (d, i) {
+      var done = i <= s.step;
+      return {
+        num: d.num,
+        label: d.label,
+        dotBg: done ? accent : '#FAF6F0',
+        dotBorder: done ? accent : '#D8CDBE',
+        dotInk: done ? '#FFFFFF' : '#8B8078',
+        labelInk: done ? '#241F1B' : '#9A9089',
+        railBg: i < s.step ? accent : '#E4DCD1'
+      };
+    });
+
+    var cells = [];
+    for (var b = 0; b < m.lead; b++) {
+      cells.push({ day: '', tag: '', bg: 'transparent', border: 'transparent', ink: 'transparent', tagInk: 'transparent', weight: '400', pick: function () {} });
+    }
+    for (var d = 1; d <= m.days; d++) {
+      (function (day) {
+        var st = self.dayState(s.monthIndex, day);
+        var dn = self.dayName(s.monthIndex, day);
+        var sel = st === 'open' && day === s.picked;
+        var tag = st === 'taken' ? 'Taken' : (st === 'held' ? 'Hold' : (dn === 'Sat' ? 'Sat' : (dn === 'Fri' ? 'Fri' : 'Week')));
+        cells.push({
+          day: String(day),
+          tag: tag,
+          weight: sel ? '600' : '400',
+          bg: sel ? accent : (st === 'taken' ? '#EFEBE5' : (st === 'held' ? '#F0E7DA' : '#FFFFFF')),
+          border: sel ? accent : (st === 'taken' ? '#E4DCD1' : (st === 'held' ? '#DCCDB8' : '#DED3C4')),
+          ink: sel ? '#FFFFFF' : (st === 'taken' ? '#B5ACA3' : '#241F1B'),
+          tagInk: sel ? 'rgba(255,255,255,0.72)' : (st === 'taken' ? '#C4BCB3' : '#A29488'),
+          pick: st === 'open' ? function () { self.setState({ picked: day }); } : function () {}
+        });
+      })(d);
+    }
+
+    var packages = this.packageList().map(function (p) {
+      var on = p.id === s.pkg;
+      return {
+        name: p.name,
+        badge: p.badge,
+        blurb: p.blurb,
+        price: self.rand(p.price),
+        bg: on ? '#F8F2EA' : '#FFFFFF',
+        border: on ? accent : '#E4DCD1',
+        pick: function () { self.setState({ pkg: p.id }); }
+      };
+    });
+
+    var addons = this.addonList().map(function (a) {
+      var on = !!s.addons[a.id];
+      return {
+        name: a.name,
+        price: a.price,
+        bg: on ? '#F8F2EA' : '#FFFFFF',
+        border: on ? accent : '#E4DCD1',
+        boxBg: on ? accent : '#FFFFFF',
+        boxBorder: on ? accent : '#D8CDBE',
+        tickInk: on ? '#FFFFFF' : 'transparent',
+        toggle: function () {
+          var next = Object.assign({}, s.addons);
+          next[a.id] = !next[a.id];
+          self.setState({ addons: next });
+        }
+      };
+    });
+
+    var languages = [{ id: 'en', name: 'English' }, { id: 'af', name: 'Afrikaans' }, { id: 'zu', name: 'isiZulu' }].map(function (l) {
+      var on = l.id === s.lang;
+      return {
+        name: l.name,
+        bg: on ? accent : '#FFFFFF',
+        border: on ? accent : '#E4DCD1',
+        ink: on ? '#FFFFFF' : '#241F1B',
+        pick: function () { self.setState({ lang: l.id }); }
+      };
+    });
+
+    var pkName = this.packageList().filter(function (p) { return p.id === s.pkg; })[0].name;
+    var venue = this.venueFee();
+    var addf = this.addonFee();
+    var cater = this.cateringFee();
+    var total = venue + addf + cater;
+    var weekday = this.isWeekday(s.monthIndex, s.picked);
+    var dateLong = this.dayName(s.monthIndex, s.picked) + ' ' + s.picked + ' ' + m.name;
+
+    var summaryLines = [
+      { label: pkName, value: self.rand(venue), ink: '#241F1B' },
+      { label: 'Catering, ' + s.guests + ' guests', value: self.rand(cater), ink: '#241F1B' },
+      { label: addf > 0 ? 'Extras' : 'No extras yet', value: addf > 0 ? self.rand(addf) : '—', ink: addf > 0 ? '#241F1B' : '#9A9089' }
+    ];
+    if (weekday) {
+      summaryLines.push({ label: 'Weekday venue reduction', value: '−15%', ink: '#5C7358' });
+    }
+
+    var addNames = this.addonList().filter(function (a) { return s.addons[a.id]; }).map(function (a) { return a.name; });
+
+    var review = [
+      { label: 'Date', value: dateLong },
+      { label: 'Package', value: pkName },
+      { label: 'Guests', value: String(s.guests) },
+      { label: 'Extras', value: addNames.length ? addNames.join(', ') : 'None' },
+      { label: 'Estimate', value: self.rand(total) }
+    ];
+
+    var ctas = ['Continue to package', 'Continue to details', 'Review your hold', 'Request the hold'];
+    var backs = ['Start over', 'Back to the date', 'Back to the package', 'Back to your details'];
+
+    return {
+      accent: accent,
+      steps: steps,
+      isDate: s.step === 0,
+      isPackage: s.step === 1,
+      isDetails: s.step === 2,
+      isHold: s.step === 3,
+      weekdayNames: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      monthLabel: m.name,
+      cells: cells,
+      guests: String(s.guests),
+      packages: packages,
+      addons: addons,
+      languages: languages,
+      review: review,
+      summaryLines: summaryLines,
+      total: this.rand(total),
+      dateHeadline: dateLong,
+      dateSub: weekday ? 'Weekday celebration' : (this.dayName(s.monthIndex, s.picked) === 'Sat' ? 'Saturday, peak season' : 'Friday celebration'),
+      holdUntil: '15 September 2026',
+      ctaLabel: ctas[s.step],
+      backLabel: backs[s.step],
+      prevMonth: function () { self.setState({ monthIndex: Math.max(0, s.monthIndex - 1) }); },
+      nextMonth: function () { self.setState({ monthIndex: Math.min(2, s.monthIndex + 1) }); },
+      fewerGuests: function () { self.setState({ guests: Math.max(20, s.guests - 10) }); },
+      moreGuests: function () { self.setState({ guests: Math.min(180, s.guests + 10) }); },
+      advance: function () { self.setState({ step: Math.min(3, s.step + 1) }); },
+      goBack: function () { if (s.step === 0) { self.setState({ picked: 28, guests: 120, pkg: 'full', addons: { welcome: true, coord: false, fire: false, bus: false }, monthIndex: 0 }); } else { self.setState({ step: s.step - 1 }); } }
+    };
+  }
+}
+</script>
+</body>
+</html>

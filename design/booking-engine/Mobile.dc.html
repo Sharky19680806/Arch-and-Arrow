@@ -1,0 +1,166 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gilda+Display&family=Karla:wght@400;500;600;700&display=swap">
+  <style>
+    body { margin: 0; background: #FAF6F0; font-family: 'Karla', 'Helvetica Neue', Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #9C5A40; text-decoration: none; }
+    a:hover { color: #7C4531; }
+    * { box-sizing: border-box; }
+    button { font-family: inherit; cursor: pointer; }
+  </style>
+</helmet>
+
+<div style="width: 390px; height: 844px; background: #FAF6F0; color: #241F1B; display: flex; flex-direction: column; overflow: hidden;">
+
+  <div style="padding: 20px 20px 14px 20px; border-bottom: 1px solid #E4DCD1;">
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+      <span style="font-family: 'Gilda Display', Georgia, serif; font-size: 17px; letter-spacing: 0.16em; text-transform: uppercase;">Arch &amp; Arrow</span>
+      <span style="font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #8B8078;">Step {{stepNum}} of 4</span>
+    </div>
+    <div style="margin-top: 14px; height: 2px; background: #E9E1D6;">
+      <div style="height: 2px; width: {{progress}}; background: {{accent}};"></div>
+    </div>
+  </div>
+
+  <div style="flex-grow: 1; overflow: hidden; padding: 22px 20px 0 20px;">
+    <h2 style="margin: 0 0 6px 0; font-family: 'Gilda Display', Georgia, serif; font-size: 27px; font-weight: 400; line-height: 1.2;">Choose your date</h2>
+    <p style="margin: 0 0 20px 0; font-size: 14px; line-height: 1.55; color: #6B615A; text-wrap: pretty;">Saturdays book out about eighteen months ahead.</p>
+
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;">
+      <button onClick="{{prevMonth}}" style="width: 44px; height: 44px; border: 1px solid #E4DCD1; background: #FFFFFF; color: #241F1B; display: flex; align-items: center; justify-content: center;" aria-label="Previous month">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg>
+      </button>
+      <span style="font-family: 'Gilda Display', Georgia, serif; font-size: 19px;">{{monthLabel}}</span>
+      <button onClick="{{nextMonth}}" style="width: 44px; height: 44px; border: 1px solid #E4DCD1; background: #FFFFFF; color: #241F1B; display: flex; align-items: center; justify-content: center;" aria-label="Next month">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"></path></svg>
+      </button>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 5px;">
+      <sc-for list="{{weekdayNames}}" as="wd" hint-placeholder-count="7">
+        <div style="text-align: center; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #A29488;">{{wd}}</div>
+      </sc-for>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 5px; margin-top: 6px;">
+      <sc-for list="{{cells}}" as="cell" hint-placeholder-count="35">
+        <button onClick="{{cell.pick}}" style="height: 46px; border: 1px solid {{cell.border}}; background: {{cell.bg}}; color: {{cell.ink}}; display: flex; align-items: center; justify-content: center; padding: 0; font-size: 14px; font-weight: {{cell.weight}};">{{cell.day}}</button>
+      </sc-for>
+    </div>
+
+    <div style="margin-top: 22px; padding-top: 18px; border-top: 1px solid #EFE9E0; display: flex; align-items: center; justify-content: space-between;">
+      <div>
+        <p style="margin: 0 0 2px 0; font-size: 15px; font-weight: 600;">Guests</p>
+        <p style="margin: 0; font-size: 13px; color: #6B615A;">Seats 180</p>
+      </div>
+      <div style="display: flex; align-items: center; gap: 4px;">
+        <button onClick="{{fewerGuests}}" style="width: 44px; height: 44px; border: 1px solid #E4DCD1; background: #FFFFFF; color: #241F1B; font-size: 19px; line-height: 1;">&minus;</button>
+        <span style="width: 62px; text-align: center; font-family: 'Gilda Display', Georgia, serif; font-size: 23px;">{{guests}}</span>
+        <button onClick="{{moreGuests}}" style="width: 44px; height: 44px; border: 1px solid #E4DCD1; background: #FFFFFF; color: #241F1B; font-size: 19px; line-height: 1;">+</button>
+      </div>
+    </div>
+  </div>
+
+  <div style="border-top: 1px solid #E4DCD1; background: #FFFFFF; padding: 16px 20px 26px 20px;">
+    <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 12px;">
+      <div>
+        <div style="font-size: 15px; font-weight: 600;">{{dateHeadline}}</div>
+        <div style="font-size: 13px; color: #8B8078;">{{dateSub}}</div>
+      </div>
+      <div style="font-family: 'Gilda Display', Georgia, serif; font-size: 23px; color: {{accent}};">{{total}}</div>
+    </div>
+    <button style="width: 100%; height: 52px; border: none; background: {{accent}}; color: #FFFFFF; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600;">Continue to package</button>
+  </div>
+
+</div>
+</x-dc>
+
+<script data-dc-script data-props='{"accent":{"editor":"color","default":"#9C5A40","options":["#9C5A40","#5C7358","#3F4A5B","#8A7B4F"],"section":"Theme"}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { monthIndex: 0, picked: 28, guests: 120 };
+  }
+
+  months() {
+    return [
+      { name: 'November 2026', lead: 6, days: 30, booked: [7, 21], held: [14] },
+      { name: 'December 2026', lead: 1, days: 31, booked: [5, 12, 19], held: [26] },
+      { name: 'January 2027', lead: 4, days: 31, booked: [16], held: [] }
+    ];
+  }
+
+  dayName(month, day) {
+    var m = this.months()[month];
+    return ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][(m.lead + day - 1) % 7];
+  }
+
+  rand(n) {
+    var s = String(Math.round(n));
+    var out = '';
+    for (var i = 0; i < s.length; i++) {
+      if (i > 0 && (s.length - i) % 3 === 0) { out += ' '; }
+      out += s[i];
+    }
+    return 'R ' + out;
+  }
+
+  renderVals() {
+    var self = this;
+    var accent = this.props.accent || '#9C5A40';
+    var s = this.state;
+    var m = this.months()[s.monthIndex];
+
+    var cells = [];
+    for (var b = 0; b < m.lead; b++) {
+      cells.push({ day: '', bg: 'transparent', border: 'transparent', ink: 'transparent', weight: '400', pick: function () {} });
+    }
+    for (var d = 1; d <= m.days; d++) {
+      (function (day) {
+        var taken = m.booked.indexOf(day) >= 0;
+        var held = m.held.indexOf(day) >= 0;
+        var sel = !taken && !held && day === s.picked;
+        cells.push({
+          day: String(day),
+          weight: sel ? '600' : '400',
+          bg: sel ? accent : (taken ? '#EFEBE5' : (held ? '#F0E7DA' : '#FFFFFF')),
+          border: sel ? accent : (taken ? '#E4DCD1' : (held ? '#DCCDB8' : '#DED3C4')),
+          ink: sel ? '#FFFFFF' : (taken ? '#B5ACA3' : '#241F1B'),
+          pick: (taken || held) ? function () {} : function () { self.setState({ picked: day }); }
+        });
+      })(d);
+    }
+
+    var dn = this.dayName(s.monthIndex, s.picked);
+    var weekday = dn !== 'Sat' && dn !== 'Fri';
+    var venue = Math.round((weekday ? 74000 * 0.85 : 74000) / 100) * 100;
+    var total = venue + 12500 + s.guests * 685;
+
+    return {
+      accent: accent,
+      stepNum: '1',
+      progress: '25%',
+      weekdayNames: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+      monthLabel: m.name,
+      cells: cells,
+      guests: String(s.guests),
+      dateHeadline: dn + ' ' + s.picked + ' ' + m.name,
+      dateSub: weekday ? 'Weekday celebration' : (dn === 'Sat' ? 'Saturday, peak season' : 'Friday celebration'),
+      total: this.rand(total),
+      prevMonth: function () { self.setState({ monthIndex: Math.max(0, s.monthIndex - 1) }); },
+      nextMonth: function () { self.setState({ monthIndex: Math.min(2, s.monthIndex + 1) }); },
+      fewerGuests: function () { self.setState({ guests: Math.max(20, s.guests - 10) }); },
+      moreGuests: function () { self.setState({ guests: Math.min(180, s.guests + 10) }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "artboards": [
+    { "file": "Main.dc.html", "x": 0, "y": 0, "w": 1180, "h": 1060, "title": "Enquiry flow — desktop", "is_interactive": true },
+    { "file": "Mobile.dc.html", "x": 1300, "y": 0, "w": 390, "h": 844, "title": "Enquiry flow — mobile", "is_interactive": true },
+    { "file": "Held.dc.html", "x": 0, "y": 1200, "w": 1180, "h": 820, "title": "Date held — confirmation" }
+  ],
+  "annotations": [
+    { "id": "note-flow", "x": 1300, "y": 960, "w": 390, "text": "Enquiry + 7-day date hold, not instant booking.\n\nDesktop flow is clickable: pick a date (Saturdays 7 and 21 Nov are taken, 14 is on hold), step through package, details and the hold review. The summary panel re-prices as you go — weekdays carry a 15% venue reduction.\n\nAll rand figures are sample values. Real facts left bracketed: [VENUE PHONE]." },
+    { "id": "note-held", "x": 1300, "y": 1200, "w": 390, "text": "Confirmation screen after the hold is requested. Deliberately not a receipt — no payment has happened. It sells the next step: read the proposal, walk the farm, then 25% to confirm." }
+  ],
+  "launch": { "view": "canvas" }
+}

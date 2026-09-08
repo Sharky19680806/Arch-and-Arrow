@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gilda+Display&family=Karla:wght@400;500;600;700&display=swap">
+  <style>
+    body { margin: 0; background: #FAF6F0; font-family: 'Karla', 'Helvetica Neue', Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #9C5A40; text-decoration: none; }
+    a:hover { color: #7C4531; }
+    * { box-sizing: border-box; }
+    button { font-family: inherit; cursor: pointer; }
+  </style>
+</helmet>
+
+<div style="width: 1180px; height: 820px; background: #FAF6F0; color: #241F1B; display: flex; flex-direction: column;">
+
+  <div style="display: flex; align-items: center; justify-content: space-between; padding: 22px 48px; border-bottom: 1px solid #E4DCD1;">
+    <span style="font-family: 'Gilda Display', Georgia, serif; font-size: 25px; letter-spacing: 0.16em; text-transform: uppercase;">Arch &amp; Arrow</span>
+    <span style="font-size: 13px; color: #6B615A;">[VENUE PHONE]</span>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 1fr 420px; gap: 48px; padding: 56px 48px; align-items: start; flex-grow: 1;">
+
+    <div>
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+        <span style="width: 34px; height: 34px; border-radius: 50%; background: {{accent}}; display: flex; align-items: center; justify-content: center;">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"></path></svg>
+        </span>
+        <span style="font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: {{accent}};">Date held</span>
+      </div>
+
+      <h1 style="margin: 0 0 18px 0; font-family: 'Gilda Display', Georgia, serif; font-size: 52px; font-weight: 400; line-height: 1.1; max-width: 16ch; text-wrap: pretty;">Saturday 28 November 2026 is yours for seven days.</h1>
+
+      <p style="margin: 0 0 36px 0; font-size: 17px; line-height: 1.65; color: #5F564F; max-width: 52ch; text-wrap: pretty;">We have taken it off the calendar. Nicole will send your costed proposal by <strong style="font-weight: 600;">tomorrow at 17:00</strong>, and a copy of this summary is already in your inbox.</p>
+
+      <div style="display: flex; flex-direction: column; gap: 22px; max-width: 58ch;">
+        <div style="display: grid; grid-template-columns: 30px 1fr; gap: 16px; align-items: start;">
+          <span style="font-family: 'Gilda Display', Georgia, serif; font-size: 19px; color: {{accent}};">01</span>
+          <div>
+            <p style="margin: 0 0 3px 0; font-size: 16px; font-weight: 600;">Read the proposal</p>
+            <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #6B615A;">Itemised in rand, including catering per head and every extra you chose.</p>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 30px 1fr; gap: 16px; align-items: start;">
+          <span style="font-family: 'Gilda Display', Georgia, serif; font-size: 19px; color: {{accent}};">02</span>
+          <div>
+            <p style="margin: 0 0 3px 0; font-size: 16px; font-weight: 600;">Come and walk the farm</p>
+            <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #6B615A;">Viewings run Tuesday to Saturday. Bring whoever is helping you decide.</p>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 30px 1fr; gap: 16px; align-items: start;">
+          <span style="font-family: 'Gilda Display', Georgia, serif; font-size: 19px; color: {{accent}};">03</span>
+          <div>
+            <p style="margin: 0 0 3px 0; font-size: 16px; font-weight: 600;">Confirm with 25%</p>
+            <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #6B615A;">The deposit turns the hold into a booking. The balance is due thirty days before.</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 12px; margin-top: 40px;">
+        <button style="height: 54px; padding: 0 30px; border: none; background: {{accent}}; color: #FFFFFF; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600;">Book a viewing</button>
+        <button style="height: 54px; padding: 0 30px; border: 1px solid #D8CDBE; background: transparent; color: #241F1B; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600;">Download summary</button>
+      </div>
+    </div>
+
+    <div style="background: #FFFFFF; border: 1px solid #E4DCD1; padding: 32px 30px;">
+      <p style="margin: 0 0 20px 0; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: #8B8078;">Your hold</p>
+      <div style="display: flex; flex-direction: column;">
+        <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding-bottom: 15px; border-bottom: 1px solid #EFE9E0;">
+          <span style="font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #8B8078;">Reference</span>
+          <span style="font-size: 16px;">AA&ndash;2611&ndash;0428</span>
+        </div>
+        <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding: 15px 0; border-bottom: 1px solid #EFE9E0;">
+          <span style="font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #8B8078;">Package</span>
+          <span style="font-size: 16px; text-align: right;">The full day</span>
+        </div>
+        <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding: 15px 0; border-bottom: 1px solid #EFE9E0;">
+          <span style="font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #8B8078;">Guests</span>
+          <span style="font-size: 16px;">120</span>
+        </div>
+        <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding: 15px 0; border-bottom: 1px solid #EFE9E0;">
+          <span style="font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #8B8078;">Extras</span>
+          <span style="font-size: 16px; text-align: right;">Friday welcome dinner</span>
+        </div>
+        <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding: 18px 0 0 0;">
+          <span style="font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #6B615A;">Estimate</span>
+          <span style="font-family: 'Gilda Display', Georgia, serif; font-size: 30px; color: {{accent}};">R 168 700</span>
+        </div>
+      </div>
+      <p style="margin: 10px 0 0 0; font-size: 12px; line-height: 1.55; color: #8B8078;">Sample figures, incl. VAT. Catering is confirmed once the menu is chosen.</p>
+
+      <div style="margin-top: 26px; padding-top: 22px; border-top: 1px solid #EFE9E0;">
+        <p style="margin: 0 0 4px 0; font-size: 14px; font-weight: 600;">Hold expires</p>
+        <p style="margin: 0; font-size: 14px; line-height: 1.6; color: #6B615A;">15 September 2026, 17:00. We will remind you two days before &mdash; the date stays off the calendar until then.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+
+<script data-dc-script data-props='{"accent":{"editor":"color","default":"#9C5A40","options":["#9C5A40","#5C7358","#3F4A5B","#8A7B4F"],"section":"Theme"}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { accent: this.props.accent || '#9C5A40' };
+  }
+}
+</script>
+</body>
+</html>
