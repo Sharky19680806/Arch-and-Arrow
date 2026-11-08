@@ -1,4 +1,4 @@
-/* Maison Elm — page motion and small behaviours.
+/* All Wrapped Up — page motion and small behaviours.
    Everything here is an enhancement: with scripts off, or with
    "reduce motion" turned on, the page still reads top to bottom. */
 (function () {
@@ -254,14 +254,14 @@
     status.textContent = 'Sending…';
     var body = new URLSearchParams(new FormData(form)).toString();
 
-    var fallback = 'This form isn’t connected yet. Please call (555) 012-6194 and we’ll take it from there.';
+    var fallback = 'This form is not connected yet. Please message us on [WhatsApp or Instagram] instead, and we will take it from there.';
     if (location.protocol === 'file:') { status.textContent = fallback; button.disabled = false; return; }
 
     fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: body })
       .then(function (res) {
         if (!res.ok) throw new Error(res.status);
         form.reset();
-        status.textContent = 'Thank you — your note is with the studio. We’ll be in touch soon.';
+        status.textContent = 'Thank you. Your message is with us, and we will get back to you soon.';
       })
       .catch(function () { status.textContent = fallback; })
       .then(function () { button.disabled = false; });
