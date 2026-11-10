@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en-ZA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>All Wrapped Up — Wrap dresses and wrap pants, made to order in Nelspruit</title>
+<meta name="description" content="All Wrapped Up is a boutique clothing store in Nelspruit, South Africa. Wrap dresses and wrap pants, made to order and ordered on WhatsApp.">
+<meta name="theme-color" content="#EFE6D8">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%23F05A28'/%3E%3Cpath d='M9 23 22 9' stroke='%23fff' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preload" href="fonts/epilogue.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav" id="top">
+  <a class="brand" href="#top" aria-label="All Wrapped Up, back to top">
+    <svg class="mark" viewBox="0 0 40 40" aria-hidden="true">
+      <circle cx="20" cy="20" r="20" fill="#F05A28"/>
+      <path d="M11 29 27.5 12.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+      <ellipse cx="27" cy="13" rx="1.1" ry="2.2" transform="rotate(45 27 13)" fill="#F05A28"/>
+      <path d="M27.4 12.6c4-3 6 2 2 5s-9 2-12 6 1 7 5 5" fill="none" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/>
+    </svg>
+    <span>All Wrapped Up</span>
+  </a>
+  <nav aria-label="Sections">
+    <a href="#try">Try it on</a>
+    <a href="#collection">Collection</a>
+    <a href="#fabrics">Fabrics</a>
+    <a href="#making">Making</a>
+    <a href="#order">Order</a>
+  </nav>
+  <a class="btn btn-small" data-wa="Hello All Wrapped Up, I'd like to ask about a made-to-order piece." href="#order">WhatsApp us</a>
+</header>
+
+<main id="main">
+
+<!-- 1. HERO -->
+<section class="hero">
+  <div class="hero-scene" data-art="hero" aria-hidden="true"></div>
+  <div class="hero-text">
+    <p class="caps reveal">Boutique clothing · Nelspruit, South Africa</p>
+    <h1 data-split>Made to wrap.<br>Made for you.</h1>
+    <p class="lede reveal">Wrap dresses and wrap pants, made to order — one piece at a time, tied the way you like it.</p>
+    <div class="actions reveal">
+      <a class="btn" data-wa="Hello All Wrapped Up, I'd like to order a made-to-order piece." href="#order">Order on WhatsApp</a>
+      <a class="link" href="#try">Try the colours <span aria-hidden="true">↓</span></a>
+    </div>
+  </div>
+  <p class="hero-note caps" aria-hidden="true">Scroll · the dress changes colour</p>
+</section>
+
+<!-- 2. CONFIGURATOR -->
+<section class="config" id="try" aria-label="Try the dress and wrap pants in every colour">
+  <div class="config-sticky">
+    <div class="stage" data-finish="0">
+      <div class="stage-wall" aria-hidden="true"></div>
+      <div class="stage-art is-on" data-garment="dress" data-art="dress" role="img" aria-label="Illustration of a wrap dress on a wooden dress stand"></div>
+      <div class="stage-art" data-garment="pants" data-art="pants" role="img" aria-label="Illustration of wide-leg wrap pants on a wooden stand"></div>
+      <p class="stage-tag caps"><span id="cfg-count">01</span> / 03</p>
+    </div>
+
+    <div class="panel">
+      <p class="caps">Try it on</p>
+      <h2 class="panel-title"><span id="cfg-name" class="swap">Oak, with a grey tie</span></h2>
+      <p class="panel-copy"><span id="cfg-copy" class="swap">A warm, sun-baked tan with a cool grey tie. Quiet in the morning, easy at night.</span></p>
+
+      <div class="field">
+        <span class="caps" id="lbl-piece">Piece</span>
+        <div class="toggle" role="group" aria-labelledby="lbl-piece">
+          <button type="button" class="is-on" data-pick="dress" aria-pressed="true">Wrap dress</button>
+          <button type="button" data-pick="pants" aria-pressed="false">Wrap pants</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <span class="caps" id="lbl-colour">Colour</span>
+        <div class="swatches" role="group" aria-labelledby="lbl-colour">
+          <button type="button" class="sw is-on" data-step="0" aria-pressed="true" aria-label="Oak with a grey tie"><i style="--a:#C79A65;--b:#B9B6AE"></i></button>
+          <button type="button" class="sw" data-step="1" aria-pressed="false" aria-label="Birch with a sand tie"><i style="--a:#E6D8BF;--b:#CDB899"></i></button>
+          <button type="button" class="sw" data-step="2" aria-pressed="false" aria-label="Walnut with a forest green tie"><i style="--a:#6B4A33;--b:#3F5A45"></i></button>
+        </div>
+      </div>
+
+      <dl class="facts" aria-live="polite">
+        <div>
+          <dt class="caps">Price</dt>
+          <dd><span id="cfg-price" class="swap ph" title="Placeholder — add your real price">R 0 000</span></dd>
+        </div>
+        <div>
+          <dt class="caps">Made to order · ready around</dt>
+          <dd><span id="cfg-date" class="swap ph" title="Placeholder — based on an example lead time">—</span></dd>
+        </div>
+      </dl>
+      <p class="ph-note">Dashed orange = placeholder to replace with your real details.</p>
+
+      <a class="btn" id="cfg-order" href="#order">Order this on WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<!-- 3. COLLECTION -->
+<section class="section" id="collection">
+  <div class="section-head">
+    <p class="caps reveal">The collection</p>
+    <h2 data-split>A small rail of pieces that wrap.</h2>
+  </div>
+  <div class="tiles">
+    <article class="tile t-a rise" style="--g:#C79A65;--t:#B9B6AE">
+      <div class="tile-art" data-art="dress" role="img" aria-label="Wrap dress illustration"></div>
+      <div class="tile-meta"><span class="caps">01</span><h3>The wrap dress</h3><p>One long line, closed with a single tie at the waist.</p></div>
+    </article>
+    <article class="tile t-b rise" style="--g:#6B4A33;--t:#3F5A45">
+      <div class="tile-art" data-art="pants" role="img" aria-label="Wrap pants illustration"></div>
+      <div class="tile-meta"><span class="caps">02</span><h3>The wrap pants</h3><p>Wide in the leg, smooth over the hip, long to the ankle.</p></div>
+    </article>
+    <article class="tile t-c tile-dark rise">
+      <div class="tile-art" data-art="lamp" aria-hidden="true"></div>
+      <div class="tile-meta"><span class="caps">Made to order</span><h3>Nothing is made until you ask.</h3><p><a class="link" data-wa="Hello All Wrapped Up, I'd like to ask about a made-to-order piece." href="#order">Start on WhatsApp <span aria-hidden="true">→</span></a></p></div>
+    </article>
+    <article class="tile t-d rise" style="--g:#E6D8BF;--t:#CDB899">
+      <div class="tile-art" data-art="top" role="img" aria-label="Wrap top illustration"></div>
+      <div class="tile-meta"><span class="caps">03</span><h3>The wrap top</h3><p>The same tie, cut short. Made for the pants.</p></div>
+    </article>
+    <article class="tile t-e rise" style="--g:#B9B6AE;--t:#6B4A33">
+      <div class="tile-art" data-art="poncho" role="img" aria-label="Poncho illustration"></div>
+      <div class="tile-meta"><span class="caps">04</span><h3>The poncho</h3><p>One soft layer for when the Lowveld evening cools.</p></div>
+    </article>
+  </div>
+</section>
+
+<!-- 4. MATERIALS -->
+<section class="section" id="fabrics">
+  <div class="section-head">
+    <p class="caps reveal">Fabrics &amp; ties</p>
+    <h2 data-split>An index of cloth, laid out long.</h2>
+    <p class="lede reveal">Every piece starts as a length of cloth and a tie. These are the three colour pairings in the fitting room above.</p>
+  </div>
+  <ol class="index">
+    <li class="rise" style="--g:#C79A65;--t:#B9B6AE">
+      <span class="caps idx">F—01</span>
+      <div class="idx-name"><h3>Oak</h3><p><span class="ph">[Fabric name &amp; composition]</span></p></div>
+      <div class="bolt" data-art="bolt" aria-hidden="true"></div>
+      <div class="idx-swatch"><i data-art="swatch" aria-hidden="true"></i><span class="caps">Grey tie</span></div>
+    </li>
+    <li class="rise" style="--g:#E6D8BF;--t:#CDB899">
+      <span class="caps idx">F—02</span>
+      <div class="idx-name"><h3>Birch</h3><p><span class="ph">[Fabric name &amp; composition]</span></p></div>
+      <div class="bolt" data-art="bolt" aria-hidden="true"></div>
+      <div class="idx-swatch"><i data-art="swatch" aria-hidden="true"></i><span class="caps">Sand tie</span></div>
+    </li>
+    <li class="rise" style="--g:#6B4A33;--t:#3F5A45">
+      <span class="caps idx">F—03</span>
+      <div class="idx-name"><h3>Walnut</h3><p><span class="ph">[Fabric name &amp; composition]</span></p></div>
+      <div class="bolt" data-art="bolt" aria-hidden="true"></div>
+      <div class="idx-swatch"><i data-art="swatch" aria-hidden="true"></i><span class="caps">Forest tie</span></div>
+    </li>
+  </ol>
+  <p class="care reveal"><span class="caps">Care</span> <span class="ph">[Washing and care instructions]</span></p>
+</section>
+
+<!-- 5. MAKING -->
+<section class="section making" id="making">
+  <div class="section-head">
+    <p class="caps reveal">How it is made</p>
+    <h2 data-split>Two panels, a waistband and one long tie.</h2>
+  </div>
+  <div class="making-grid">
+    <figure class="exploded rise" data-art="exploded" role="img" aria-label="Exploded drawing of wrap pants: waistband, two ties, front panel and back panel"></figure>
+    <ol class="steps">
+      <li class="reveal"><span class="num">01</span><div><h3>You say hello</h3><p>Message us on WhatsApp. Tell us which piece caught your eye.</p></div></li>
+      <li class="reveal"><span class="num">02</span><div><h3>You choose</h3><p>Dress or wrap pants, then the colour and the tie.</p></div></li>
+      <li class="reveal"><span class="num">03</span><div><h3>You measure</h3><p>A few numbers from a tape measure, so it sits the way it should.</p></div></li>
+      <li class="reveal"><span class="num">04</span><div><h3>We make it</h3><p>Your piece is cut and sewn to your order. Not before.</p></div></li>
+      <li class="reveal"><span class="num">05</span><div><h3>It comes to you</h3><p>Wrapped up and sent on its way. <span class="ph">[Delivery method, areas and cost]</span></p></div></li>
+    </ol>
+  </div>
+</section>
+
+<!-- 6. CHARCOAL: ONE AT A TIME -->
+<section class="dark" id="one">
+  <div class="dark-grid">
+    <div class="big-wrap">
+      <p class="caps reveal">Made to order</p>
+      <p class="big rise" aria-hidden="true">01</p>
+      <h2 data-split>One piece at a time. Yours.</h2>
+      <p class="lede reveal">Made to order means we don't fill a storeroom and hope. We make the piece you asked for, when you ask for it.</p>
+    </div>
+    <div class="receipt rise" aria-label="An itemised made-to-order receipt">
+      <p class="caps r-head">All Wrapped Up<br>Nelspruit, South Africa</p>
+      <p class="caps r-sub">What goes into one order</p>
+      <ul>
+        <li><span>Pieces made before you ordered</span><b>0</b></li>
+        <li><span>Pieces made for you</span><b>1</b></li>
+        <li><span>Cloth for the piece</span><b class="ph">[0.0 m]</b></li>
+        <li><span>Tie, cut to match</span><b>1</b></li>
+        <li><span>Time to make</span><b class="ph">[0 weeks]</b></li>
+        <li><span>Delivery</span><b class="ph">[method]</b></li>
+      </ul>
+      <p class="r-total"><span>Total</span><b>One piece, yours</b></p>
+      <p class="caps r-foot">Thank you · ordered on WhatsApp</p>
+    </div>
+  </div>
+</section>
+
+<!-- 7. ORDER (instead of showrooms) -->
+<section class="section order" id="order">
+  <div class="section-head">
+    <p class="caps reveal">No showroom · order on WhatsApp</p>
+    <h2 data-split>The fitting room is in your pocket.</h2>
+    <p class="lede reveal">We don't have a showroom. Fill this in and it opens WhatsApp with your order written out, ready to send. Nothing is sent until you press send there.</p>
+  </div>
+  <div class="order-grid">
+    <figure class="plan rise" data-art="plan" role="img" aria-label="A drawing of a dress with four measurements marked: bust, waist, hips and length"></figure>
+
+    <form class="form rise" id="order-form" novalidate>
+      <label>Your name
+        <input type="text" name="name" autocomplete="given-name" required>
+      </label>
+      <div class="row">
+        <label>Piece
+          <select name="piece">
+            <option>Wrap dress</option>
+            <option>Wrap pants</option>
+            <option>Wrap top</option>
+            <option>Poncho</option>
+          </select>
+        </label>
+        <label>Colour
+          <select name="colour">
+            <option>Oak, grey tie</option>
+            <option>Birch, sand tie</option>
+            <option>Walnut, forest green tie</option>
+            <option>Not sure yet</option>
+          </select>
+        </label>
+      </div>
+      <fieldset>
+        <legend class="caps">Measurements in cm · optional</legend>
+        <div class="row row-4">
+          <label><span><b>A</b> Bust</span><input type="number" name="bust" inputmode="decimal" min="0"></label>
+          <label><span><b>B</b> Waist</span><input type="number" name="waist" inputmode="decimal" min="0"></label>
+          <label><span><b>C</b> Hips</span><input type="number" name="hips" inputmode="decimal" min="0"></label>
+          <label><span><b>D</b> Length</span><input type="number" name="length" inputmode="decimal" min="0"></label>
+        </div>
+      </fieldset>
+      <label>Anything else
+        <textarea name="note" rows="3" placeholder="An occasion, a date you need it by, a question…"></textarea>
+      </label>
+      <button class="btn" type="submit">Open WhatsApp with my order</button>
+      <p class="form-note">WhatsApp: <span class="ph">[Your WhatsApp number]</span> · Nelspruit, South Africa</p>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<!-- 8. FOOTER -->
+<footer class="footer">
+  <div class="footer-top">
+    <div>
+      <p class="caps">Boutique clothing</p>
+      <p>Wrap dresses and wrap pants, made to order.<br>Nelspruit, South Africa.</p>
+    </div>
+    <div>
+      <p class="caps">Reach us</p>
+      <p><a data-wa="Hello All Wrapped Up" href="#order">WhatsApp</a> · <span class="ph">[Your WhatsApp number]</span></p>
+    </div>
+    <div>
+      <p class="caps">Sections</p>
+      <p><a href="#try">Try it on</a> · <a href="#collection">Collection</a> · <a href="#fabrics">Fabrics</a> · <a href="#making">Making</a> · <a href="#order">Order</a></p>
+    </div>
+  </div>
+  <p class="footer-name" aria-hidden="true">All Wrapped Up</p>
+  <p class="footer-legal caps">© <span id="year">2026</span> All Wrapped Up · Nelspruit, South Africa</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
