@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cutty Sark Villa, Plettenberg Bay | Luxury Hideaways South Africa</title>
+  <meta name="description" content="Cutty Sark Villa, Plettenberg Bay. 5 bedrooms, 5 bathrooms, sleeps 10. 180-degree views over the Indian Ocean and Robberg Nature Reserve, two infinity pools, VIP service, private chef and concierge." />
+  <link rel="canonical" href="https://www.lh-sa.com/villas/cuttysark" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Cutty Sark Villa | Luxury Hideaways South Africa" />
+  <meta property="og:description" content="A five-bedroom architectural villa on Cutty Sark Hill, Plettenberg Bay, with sweeping views of the Indian Ocean." />
+  <meta property="og:url" content="https://www.lh-sa.com/villas/cuttysark" />
+  <meta property="og:image" content="https://assets.dfs-ag.de/dfs-southafrica/property_uploads/property_images/866240637.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* Design tokens recovered from the live site (Astra global palette + Elementor page CSS) */
+    :root {
+      --gold: #e4ad50;          /* ast-global-color-2: dividers, icons, accents */
+      --navy: #153243;          /* ast-global-color-6/7: hero gradient start */
+      --ink: rgba(0,0,0,.92);   /* ast-global-color-0: hero gradient end */
+      --night: #0d0d0d;         /* intro section background */
+      --muted: #bdbdbd;         /* intro paragraph */
+      --btn-ink: #0e0e0e;
+      --white: #ffffff;
+      --wa: #25d366;
+      --serif: "Playfair Display", Georgia, serif;
+      --sans: "Work Sans", system-ui, sans-serif;
+      --max: 1140px;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; font-family: var(--sans); color: #3a3a3a; background: var(--white); line-height: 1.65; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; }
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 20px; }
+    .skip { position: absolute; left: -9999px; }
+    .skip:focus { left: 16px; top: 16px; z-index: 100; background: var(--white); padding: 8px 12px; }
+
+    /* Header: transparent, overlays the hero */
+    .site-header { position: absolute; inset: 0 0 auto; z-index: 10; }
+    .site-header .wrap { display: flex; align-items: center; justify-content: space-between; height: 90px; }
+    .logo img { width: 190px; height: auto; }
+    .hero .loc { margin: 0 0 22px; color: var(--gold); letter-spacing: 3px; text-transform: uppercase; font-size: 13px; }
+    .desc .price { color: var(--gold); letter-spacing: 1.5px; text-transform: uppercase; font-size: 13px; margin: 0 0 18px; }
+    .desc .price strong { font-family: var(--serif); font-weight: 400; font-size: 22px; letter-spacing: .5px; text-transform: none; color: var(--white); }
+    .site-footer address { font-style: normal; margin-bottom: 24px; line-height: 1.9; }
+    .nav { display: flex; gap: 28px; list-style: none; margin: 0; padding: 0; }
+    .nav a { color: var(--white); text-decoration: none; font-size: 15px; letter-spacing: .5px; }
+    .nav a:hover, .nav a:focus-visible { color: var(--gold); }
+    .menu-toggle { display: none; background: none; border: 0; color: var(--white); font-size: 28px; cursor: pointer; }
+
+    /* Hero: background image + navy→black gradient overlay at 60% */
+    .hero { position: relative; padding: 200px 20px 100px; text-align: center; color: var(--white);
+      background: url("https://assets.dfs-ag.de/dfs-southafrica/property_uploads/property_images/866240637.jpg") center/cover no-repeat; }
+    .hero::before { content: ""; position: absolute; inset: 0; opacity: .6; background: linear-gradient(180deg, var(--navy) 0%, var(--ink) 100%); }
+    .hero > * { position: relative; }
+    .hero h1 { font-family: var(--serif); font-weight: 400; font-size: 52px; letter-spacing: 2.5px; margin: 0 0 18px; }
+    .rule { border: 0; border-top: 2px solid var(--gold); margin: 0 auto; }
+    .hero .rule { width: 25%; border-top-width: 2.4px; }
+
+    /* Intro: facts column + description column on near-black */
+    .intro { background: var(--night); padding: 100px 0; }
+    .intro .wrap { display: grid; grid-template-columns: 34% 1fr; gap: 40px; align-items: center; }
+    .facts .rule { width: 263px; max-width: 100%; margin: 0; }
+    .facts ul { list-style: none; margin: 22px 0; padding: 0; }
+    .facts li { display: flex; align-items: center; color: var(--gold); padding: 4.5px 0; letter-spacing: 1.5px; font-size: 15px; }
+    .facts svg { width: 17px; height: 17px; fill: var(--gold); margin-right: 43px; flex: none; }
+    .desc p { color: var(--muted); margin: 0 0 28px; font-weight: 300; font-size: 17px; }
+    .btn { display: inline-block; background: var(--white); color: var(--btn-ink); text-decoration: none;
+      padding: 12px 26px; font-size: 14px; letter-spacing: 1px; text-transform: uppercase; transition: background .2s, color .2s; }
+    .btn:hover, .btn:focus-visible { background: var(--gold); color: var(--btn-ink); }
+
+    /* Gallery: 3 columns, 10px gutters, opens a lightbox */
+    .gallery { padding: 100px 0; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .grid button { padding: 0; border: 0; cursor: zoom-in; background: #eee; aspect-ratio: 3 / 2; overflow: hidden; }
+    .grid img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+    .grid button:hover img { transform: scale(1.04); }
+
+    .lightbox { position: fixed; inset: 0; z-index: 50; background: rgba(0,0,0,.92); display: none; align-items: center; justify-content: center; }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: 92vw; max-height: 86vh; object-fit: contain; }
+    .lb-btn { position: absolute; background: none; border: 0; color: var(--white); font-size: 40px; cursor: pointer; padding: 12px 18px; line-height: 1; }
+    .lb-btn:hover { color: var(--gold); }
+    .lb-close { top: 10px; right: 10px; }
+    .lb-prev { left: 10px; top: 50%; transform: translateY(-50%); }
+    .lb-next { right: 10px; top: 50%; transform: translateY(-50%); }
+    .lb-count { position: absolute; bottom: 18px; color: var(--muted); font-size: 14px; }
+
+    /* Footer */
+    .site-footer { background: var(--night); color: var(--muted); text-align: center; padding: 60px 20px 30px; font-size: 14px; }
+    .site-footer .nav { justify-content: center; flex-wrap: wrap; margin-bottom: 30px; }
+    .site-footer .flogo { width: 220px; margin: 0 auto 24px; }
+    .site-footer a { color: var(--muted); }
+
+    /* Floating WhatsApp button (Click to Chat plugin equivalent) */
+    .wa { position: fixed; right: 20px; bottom: 20px; z-index: 40; display: flex; align-items: center; gap: 8px;
+      background: var(--wa); color: var(--white); text-decoration: none; padding: 10px 16px; border-radius: 30px;
+      box-shadow: 0 4px 14px rgba(0,0,0,.25); font-size: 14px; }
+    .wa svg { width: 22px; height: 22px; fill: currentColor; }
+
+    @media (max-width: 1024px) {
+      .hero { padding: 140px 80px 80px; }
+      .hero h1 { font-size: 40px; }
+      .intro, .gallery { padding: 50px 30px; }
+    }
+    @media (max-width: 767px) {
+      .menu-toggle { display: block; }
+      .logo img { width: 150px; }
+      .site-header .nav { display: none; position: absolute; top: 90px; left: 0; right: 0; flex-direction: column; gap: 0; background: var(--night); }
+      .site-header .nav.open { display: flex; }
+      .site-header .nav a { display: block; padding: 14px 20px; border-top: 1px solid #222; }
+      .hero { padding: 130px 16px 70px; }
+      .hero h1 { font-size: 30px; }
+      .intro { padding: 60px 16px; }
+      .intro .wrap { grid-template-columns: 1fr; padding: 0; }
+      .gallery { padding: 60px 16px; }
+      .gallery .wrap { padding: 0; }
+      .grid { grid-template-columns: repeat(2, 1fr); }
+      .wa span { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="logo" href="https://www.lh-sa.com/" aria-label="Luxury Hideaways South Africa home">
+        <img src="https://assets.dfs-ag.de/dfs-southafrica/images/white-logo.png" alt="Luxury Hideaways South Africa" width="190" />
+      </a>
+      <button class="menu-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Menu">&#9776;</button>
+      <ul class="nav" id="primary-nav">
+        <li><a href="https://www.lh-sa.com/villas">Villas</a></li>
+        <li><a href="https://www.lh-sa.com/packages">Packages</a></li>
+        <li><a href="https://www.lh-sa.com/safari">Safari</a></li>
+        <li><a href="https://www.lh-sa.com/about-us">About</a></li>
+        <li><a href="https://www.lh-sa.com/homeowners">Homeowners</a></li>
+        <li><a href="https://www.lh-sa.com/contact">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <h1>Cutty Sark Villa</h1>
+      <p class="loc">Plettenberg Bay &middot; South Africa</p>
+      <hr class="rule" />
+    </section>
+
+    <section class="intro">
+      <div class="wrap">
+        <div class="facts">
+          <hr class="rule" />
+          <ul>
+            <li><svg viewBox="0 0 640 512" aria-hidden="true"><path d="M176 256c44 0 80-36 80-80s-36-80-80-80-80 36-80 80 36 80 80 80zm352-128H304c-9 0-16 7-16 16v144H64V80c0-9-7-16-16-16H16C7 64 0 71 0 80v352c0 9 7 16 16 16h32c9 0 16-7 16-16v-48h512v48c0 9 7 16 16 16h32c9 0 16-7 16-16V240c0-62-50-112-112-112z"/></svg>5 BEDROOMS</li>
+            <li><svg viewBox="0 0 512 512" aria-hidden="true"><path d="M32 384a95 95 0 0 0 32 71V496a16 16 0 0 0 16 16h32a16 16 0 0 0 16-16v-16h256v16a16 16 0 0 0 16 16h32a16 16 0 0 0 16-16v-41a95 95 0 0 0 32-71v-64H32zm464-128H80V69a37 37 0 0 1 63-26l19 19c-13 30-7 63 10 86l-1 1a16 16 0 0 0 0 23l11 11a16 16 0 0 0 23 0l105-105a16 16 0 0 0 0-23l-11-11a16 16 0 0 0-23 0l-1 1c-23-17-56-23-86-10l-19-19A101 101 0 0 0 16 69v187a16 16 0 0 0-16 16v16a16 16 0 0 0 16 16h480a16 16 0 0 0 16-16v-16a16 16 0 0 0-16-16z"/></svg>5 BATHROOMS</li>
+            <li><svg viewBox="0 0 640 512" aria-hidden="true"><path d="M192 256c62 0 112-50 112-112S254 32 192 32 80 82 80 144s50 112 112 112zm77 32h-8a155 155 0 0 1-138 0h-8C52 288 0 340 0 403v29c0 27 22 48 48 48h288c27 0 48-21 48-48v-29c0-63-52-115-115-115zm211-32c53 0 96-43 96-96s-43-96-96-96-96 43-96 96 43 96 96 96zm48 32h-4c-14 5-29 8-44 8s-30-3-44-8h-4c-20 0-39 6-55 16 25 27 39 62 39 99v38c0 2 0 4-1 7h177c26 0 48-22 48-48 0-62-50-112-112-112z"/></svg>10 GUESTS</li>
+          </ul>
+          <hr class="rule" />
+        </div>
+        <div class="desc">
+          <p>This architectural masterpiece offers ultimate luxury and exclusive accommodation in one of South Africa&rsquo;s Garden Route&rsquo;s most breathtaking locations, Plettenberg Bay. Perched on top of the iconic Cutty Sark Hill, a prestigious address renowned for its elevated 180-degree views, this five-bedroom luxury villa boasts sweeping vistas of the sparkling Indian Ocean, Robberg Nature Reserve, and some of Plettenberg Bay&rsquo;s most exclusive neighbourhoods.</p>
+          <p>The open-plan living areas allow a seamless indoor-outdoor flow to two sparkling infinity pools surrounding the villa, creating the perfect setting for relaxation while immersed in the surrounding natural beauty and beautifully maintained gardens. Indoors, the living spaces are thoughtfully configured with numerous spacious dining and lounging areas, complemented by a state-of-the-art kitchen. The property is child-friendly, making it an exceptional luxury retreat for families and groups seeking an unforgettable stay in Plettenberg Bay.</p>
+          <p class="price">From <strong>R 23,500</strong> per night</p>
+          <a class="btn" href="https://lh-villa-enquiry.netlify.app/?villa=Cutty%20Sark%20Villa">Enquire Now</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="gallery" aria-label="Photo gallery">
+      <div class="wrap">
+        <div class="grid" id="grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <ul class="nav">
+      <li><a href="https://www.lh-sa.com/villas">Villas</a></li>
+      <li><a href="https://www.lh-sa.com/homeowners">Homeowners</a></li>
+      <li><a href="https://www.lh-sa.com/about-us">About Us</a></li>
+      <li><a href="https://www.lh-sa.com/blog">Blog</a></li>
+      <li><a href="https://www.lh-sa.com/contact">Contact</a></li>
+    </ul>
+    <img class="flogo" src="https://assets.dfs-ag.de/dfs-southafrica/images/white-logo.png" alt="Luxury Hideaways South Africa" />
+    <address>
+      <a href="tel:+27829390909">+27 82 939 0909</a> &middot; <a href="tel:+27444920490">+27 44 492 0490</a> &middot; <a href="mailto:info@lh-sa.com">info@lh-sa.com</a><br />
+      31 Monk&rsquo;s View, 3 Gibbs Street, Plettenberg Bay &middot; The Pavilion, 1 Dock Road, V&amp;A Waterfront, Cape Town<br />
+      <a href="https://www.instagram.com/luxuryhideaways_sa/" target="_blank" rel="noopener">Instagram</a>
+    </address>
+    <p>Copyright &copy; <span id="yr">2026</span> Luxury Hideaways South Africa (Pty) Ltd &middot; <a href="https://www.lh-sa.com/privacy">Privacy</a> &middot; <a href="https://www.lh-sa.com/terms">Terms and Conditions</a></p>
+  </footer>
+
+  <a class="wa" href="https://wa.me/27829390909?text=Hello%2C%20I%20would%20like%20to%20enquire%20about%20Cutty%20Sark%20Villa." target="_blank" rel="noopener">
+    <svg viewBox="0 0 448 512" aria-hidden="true"><path d="M380 97A223 223 0 0 0 33 365L0 480l118-31a222 222 0 0 0 106 27c123 0 224-100 224-223 0-60-25-115-68-156zM224 439c-33 0-66-9-94-26l-7-4-70 18 19-68-4-7a185 185 0 1 1 156 87zm101-138c-5-3-33-16-38-18s-9-3-12 3-14 18-17 21-6 4-12 1c-33-16-54-29-76-66-6-10 6-9 16-30 2-4 1-7-1-10l-17-41c-4-11-9-9-12-9h-11c-4 0-10 1-15 7s-20 19-20 47 20 55 23 58 40 61 97 85c36 16 50 17 68 14 11-2 33-13 38-27s5-25 3-27-4-4-10-6z"/></svg>
+    <span>WhatsApp us</span>
+  </a>
+
+  <div class="lightbox" id="lb" role="dialog" aria-modal="true" aria-label="Photo viewer">
+    <button class="lb-btn lb-close" aria-label="Close">&times;</button>
+    <button class="lb-btn lb-prev" aria-label="Previous photo">&#8249;</button>
+    <img alt="" />
+    <button class="lb-btn lb-next" aria-label="Next photo">&#8250;</button>
+    <div class="lb-count"></div>
+  </div>
+
+  <script>
+    // Gallery order matches the villa page on lh-sa.com.
+    const BASE = "https://assets.dfs-ag.de/dfs-southafrica/property_uploads/property_images/";
+    const IDS = ["866240637", "867524866", "412483860", "870920707", "288723825", "664496092", "854087737", "512237066", "675818795", "945299014", "41888754", "403803182", "872608387", "919244447", "149734505", "371112653", "631485682"];
+    const photos = IDS.map(id => ({ full: `${BASE}${id}.jpg`, thumb: `${BASE}${id}.jpg` }));
+
+    const grid = document.getElementById("grid");
+    photos.forEach((p, i) => {
+      const b = document.createElement("button");
+      b.setAttribute("aria-label", `Open photo ${i + 1} of ${photos.length}`);
+      const img = document.createElement("img");
+      img.loading = i < 3 ? "eager" : "lazy";
+      img.alt = `Cutty Sark Villa, photo ${i + 1}`;
+      img.src = p.thumb;
+      img.onerror = () => { img.onerror = null; img.src = p.full; }; // fall back if a resized copy is missing
+      b.appendChild(img);
+      b.addEventListener("click", () => openLb(i));
+      grid.appendChild(b);
+    });
+
+    const lb = document.getElementById("lb"), lbImg = lb.querySelector("img"), lbCount = lb.querySelector(".lb-count");
+    let cur = 0, lastFocus = null;
+    function show(i) {
+      cur = (i + photos.length) % photos.length;
+      lbImg.src = photos[cur].full;
+      lbImg.alt = `Cutty Sark Villa, photo ${cur + 1}`;
+      lbCount.textContent = `${cur + 1} / ${photos.length}`;
+    }
+    function openLb(i) { lastFocus = document.activeElement; show(i); lb.classList.add("open"); lb.querySelector(".lb-close").focus(); document.body.style.overflow = "hidden"; }
+    function closeLb() { lb.classList.remove("open"); document.body.style.overflow = ""; lastFocus && lastFocus.focus(); }
+    lb.querySelector(".lb-close").onclick = closeLb;
+    lb.querySelector(".lb-prev").onclick = () => show(cur - 1);
+    lb.querySelector(".lb-next").onclick = () => show(cur + 1);
+    lb.addEventListener("click", e => { if (e.target === lb) closeLb(); });
+    document.addEventListener("keydown", e => {
+      if (!lb.classList.contains("open")) return;
+      if (e.key === "Escape") closeLb();
+      if (e.key === "ArrowLeft") show(cur - 1);
+      if (e.key === "ArrowRight") show(cur + 1);
+    });
+
+    const toggle = document.querySelector(".menu-toggle"), nav = document.getElementById("primary-nav");
+    toggle.addEventListener("click", () => {
+      const open = nav.classList.toggle("open");
+      toggle.setAttribute("aria-expanded", open);
+    });
+
+    document.getElementById("yr").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
