@@ -147,12 +147,17 @@
         <label>Search intent</label>
         <div class="pills" id="k_intents"></div>
         <div class="btn-row"><button class="btn" id="k_go" type="button">Generate ideas</button><button class="btn ghost" id="k_copy" type="button">Copy list</button><button class="btn ghost" id="k_csv" type="button">Download CSV</button></div>
-        <p class="hint">Ideas are pattern-based, not measured. Validate volume and difficulty in Google Search Console, Google Keyword Planner or a paid tool before committing content.</p>
+        <p class="hint">Ideas are pattern-based. Where a keyword appears in the measured set below, its Google US monthly volume and difficulty are shown; "—" means not measured, so validate it in Search Console or Keyword Planner before committing content.</p>
       </div>
       <div class="card">
         <h2>Ideas <span class="chip" id="k_n">0</span></h2>
-        <div style="max-height:620px;overflow:auto"><table><thead><tr><th>Keyword</th><th>Intent</th><th>Suggested page</th></tr></thead><tbody id="k_rows"></tbody></table></div>
+        <div style="max-height:620px;overflow:auto"><table><thead><tr><th>Keyword</th><th>Vol/mo</th><th>Diff.</th><th>Intent</th><th>Suggested page</th></tr></thead><tbody id="k_rows"></tbody></table></div>
       </div>
+    </div>
+    <div class="card" style="margin-top:18px">
+      <h2>Measured demand <span class="chip" id="l_n"></span></h2>
+      <p class="hint" id="l_note"></p>
+      <div style="overflow-x:auto"><table><thead><tr><th>Keyword</th><th>Vol/mo (US)</th><th>Difficulty</th><th>Read</th></tr></thead><tbody id="l_rows"></tbody></table></div>
     </div>
   </section>
 
@@ -316,6 +321,7 @@ Can you arrange a private chef? | Yes, our chef creates bespoke menus on request
     function info(msg, tip) { checks.push({ s: 'info', m: msg, t: tip }); }
 
     if (!kw) { info('Enter a target keyword to unlock keyword checks.'); }
+    else { var lm = metric(kw); info(lm ? 'Search demand: ' + fmtN(lm[0]) + '/mo (' + LIVE.db + ', ' + LIVE.asOf + ')' + (lm[1] !== null ? ', difficulty ' + lm[1] : '') : 'No measured demand for this keyword yet', lm ? undefined : 'Check it in Search Console or Keyword Planner.'); }
     // title
     if (!title) add(10, 'fail', 'No SEO title', 'Write a 50-60 character title.');
     else if (title.length < 30) add(10, 'warn', 'Title is short (' + title.length + ' chars)', 'Use 50-60 characters to earn more of the result.');
@@ -405,6 +411,9 @@ Can you arrange a private chef? | Yes, our chef creates bespoke menus on request
   pills('k_feats', FEATS, [0, 1, 2, 5, 6], 'kf');
   $('k_intents').innerHTML = Object.keys(INTENTS).map(function (k) { return '<label><input type="checkbox" name="ki" value="' + k + '" checked>' + INTENTS[k] + '</label>'; }).join('');
   function vals(name) { return Array.prototype.map.call(document.querySelectorAll('input[name="' + name + '"]:checked'), function (i) { return i.value; }); }
+  var LIVE = { asOf: "2026-11-26", db: "Google US", data: {"amalfi coast boutique hotel":[720,22],"luxury villa tuscany":[1600,20],"santorini luxury hotels":[2900,30],"tuscany boutique hotel":[480,47],"where to stay in santorini":[1600,43],"santorini honeymoon":[1300,11],"secluded luxury resort":[70,null],"villa with private pool":[1600,32],"luxury villa amalfi coast":[260,26],"santorini boutique hotel":[480,44],"luxury beachfront villa":[720,24],"luxury chalet rental":[140,11],"tuscany luxury hotels":[2400,13],"santorini villa with private pool":[140,31],"romantic getaway luxury":[1,1],"luxury honeymoon destinations":[590,12],"luxury eco lodge":[210,15],"amalfi coast villa rental":[720,50],"best time to visit tuscany":[1000,15],"amalfi coast luxury hotels":[4400,38],"santorini luxury resort":[590,41],"boutique hotel":[90500,51],"private villa santorini":[50,35],"best time to visit santorini":[1900,27],"luxury villa santorini":[390,33],"luxury villa rental":[4400,58],"wellness retreat luxury":[30,42],"where to stay in tuscany":[880,15],"tuscany villa with private pool":[70,24],"tuscany honeymoon":[260,9],"luxury retreat":[1300,38],"luxury glamping":[2400,52],"luxury castle hotel":[390,19],"private island rental":[1000,11],"ski in ski out luxury chalet":[30,1],"private villa with chef":[20,null],"adults only resort":[9900,2],"things to do in santorini":[5400,11],"luxury hideaway":[30,1],"best time to visit amalfi coast":[2400,15],"amalfi coast honeymoon":[1300,30],"where to stay amalfi coast":[1900,12],"tuscany villa rental":[260,1],"luxury treehouse":[10,42]} };
+  function metric(k) { var r = LIVE.data[k.toLowerCase()]; return r || null; }
+  function fmtN(n) { return n >= 1000 ? n.toLocaleString("en-US") : String(n); }
   var ideas = [];
   function genKeywords() {
     var dests = $('k_dest').value.split(',').map(function (s) { return s.trim(); }).filter(Boolean);
@@ -423,16 +432,26 @@ Can you arrange a private chef? | Yes, our chef creates bespoke menus on request
         ['best time to visit ' + d, 'things to do in ' + d + ' for couples', d + ' travel guide luxury', 'how many days in ' + d, 'where to stay in ' + d + ' luxury', d + ' honeymoon itinerary', 'is ' + d + ' worth visiting'].forEach(function (k) { push(k, 'informational', 'Journal / destination guide'); });
       }
     });
-    ideas.sort(function (a, b) { return a.kw.split(' ').length - b.kw.split(' ').length || (a.kw < b.kw ? -1 : 1); });
+    ideas.forEach(function (i) { i.m = metric(i.kw); });
+    ideas.sort(function (a, b) { return (b.m ? b.m[0] : -1) - (a.m ? a.m[0] : -1) || a.kw.split(' ').length - b.kw.split(' ').length || (a.kw < b.kw ? -1 : 1); });
     $('k_n').textContent = ideas.length;
-    $('k_rows').innerHTML = ideas.map(function (i) { return '<tr><td>' + esc(i.kw) + '</td><td><span class="chip">' + i.intent + '</span></td><td class="hint">' + esc(i.page) + '</td></tr>'; }).join('') || '<tr><td colspan="3" class="hint">Add a destination and pick at least one property type.</td></tr>';
+    $('k_rows').innerHTML = ideas.map(function (i) { return '<tr><td>' + esc(i.kw) + '</td><td>' + (i.m ? fmtN(i.m[0]) : '—') + '</td><td>' + (i.m && i.m[1] !== null ? i.m[1] : '—') + '</td><td><span class="chip">' + i.intent + '</span></td><td class="hint">' + esc(i.page) + '</td></tr>'; }).join('') || '<tr><td colspan="5" class="hint">Add a destination and pick at least one property type.</td></tr>';
+  }
+  function renderLive() {
+    var rows = Object.keys(LIVE.data).map(function (k) { return { k: k, v: LIVE.data[k][0], d: LIVE.data[k][1] }; }).sort(function (a, b) { return b.v - a.v; });
+    $('l_n').textContent = rows.length;
+    $('l_note').textContent = 'Monthly searches in the ' + LIVE.db + ' database, measured ' + LIVE.asOf + '. This is a snapshot, not a live feed. Volumes are for US searchers only; European destinations draw more traffic from the UK and EU than these figures show.';
+    $('l_rows').innerHTML = rows.map(function (r) {
+      var read = r.v < 50 ? 'Too little demand' : r.d === null ? 'No difficulty data' : (r.d <= 25 && r.v >= 250) ? 'Quick win' : r.d >= 45 ? 'Competitive' : 'Worth targeting';
+      return '<tr><td>' + esc(r.k) + '</td><td>' + fmtN(r.v) + '</td><td>' + (r.d === null ? '—' : r.d) + '</td><td><span class="chip">' + read + '</span></td></tr>';
+    }).join('');
   }
   $('k_go').onclick = genKeywords;
   $('k_copy').onclick = function () { if (ideas.length) copy(ideas.map(function (i) { return i.kw; }).join('\n')); else toast('Generate ideas first'); };
   $('k_csv').onclick = function () {
     if (!ideas.length) return toast('Generate ideas first');
     function q(s) { s = String(s); if (/^[=+\-@\t\r]/.test(s)) s = "'" + s; return '"' + s.replace(/"/g, '""') + '"'; }
-    var csv = 'keyword,intent,suggested_page\n' + ideas.map(function (i) { return [q(i.kw), q(i.intent), q(i.page)].join(','); }).join('\n');
+    var csv = 'keyword,monthly_volume_us,difficulty,intent,suggested_page\n' + ideas.map(function (i) { return [q(i.kw), i.m ? i.m[0] : '', i.m && i.m[1] !== null ? i.m[1] : '', q(i.intent), q(i.page)].join(','); }).join('\n');
     var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' })); a.download = 'luxury-hideaway-keywords.csv'; document.body.appendChild(a); a.click(); a.remove();
   };
 
@@ -510,7 +529,7 @@ Can you arrange a private chef? | Yes, our chef creates bespoke menus on request
   ['t_site', 't_paths', 't_block'].forEach(function (id) { $(id).addEventListener('input', refreshTech); });
 
   /* ---------- init ---------- */
-  runAudit(); genKeywords(); renderList(); refreshTech();
+  renderLive(); runAudit(); genKeywords(); renderList(); refreshTech();
 })();
 </script>
 </body>
