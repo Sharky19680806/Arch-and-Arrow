@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Luxury Hideaways SEO Studio</title>
+<meta name="description" content="A free, private SEO toolkit for luxury hideaway, villa and boutique retreat websites: page audit, keyword ideas, meta tags, schema markup and a launch checklist." />
+<style>
+  :root {
+    --bg: #f7f3ec; --panel: #ffffff; --ink: #1f1b16; --muted: #6b645a; --line: #e4dccd;
+    --gold: #9a7b3c; --gold-soft: #f1e8d3; --good: #2f7d4f; --warn: #b7791f; --bad: #b3372f;
+    --code: #faf7f0;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #14120f; --panel: #1d1a16; --ink: #f1ebdd; --muted: #a39a8a; --line: #332e26;
+      --gold: #d4b26a; --gold-soft: #2b2417; --good: #5cc18a; --warn: #e3a94c; --bad: #ef7d73; --code: #17140f;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #14120f; --panel: #1d1a16; --ink: #f1ebdd; --muted: #a39a8a; --line: #332e26;
+    --gold: #d4b26a; --gold-soft: #2b2417; --good: #5cc18a; --warn: #e3a94c; --bad: #ef7d73; --code: #17140f;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: Georgia, 'Times New Roman', serif; line-height: 1.5; }
+  .sans, button, input, select, textarea, label, table { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+  header { padding: 28px 16px 8px; max-width: 1100px; margin: 0 auto; display: flex; gap: 12px; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; }
+  header h1 { margin: 0; font-weight: 400; font-size: 1.9rem; letter-spacing: .02em; }
+  header h1 span { color: var(--gold); font-style: italic; }
+  header p { margin: 4px 0 0; color: var(--muted); max-width: 640px; }
+  main { max-width: 1100px; margin: 0 auto; padding: 0 16px 60px; }
+  nav { display: flex; gap: 6px; flex-wrap: wrap; border-bottom: 1px solid var(--line); margin: 18px 0 20px; }
+  nav button { background: none; border: none; border-bottom: 2px solid transparent; padding: 10px 14px; cursor: pointer; color: var(--muted); font-size: .95rem; }
+  nav button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--gold); font-weight: 600; }
+  .panel { display: none; } .panel.active { display: block; }
+  .grid { display: grid; gap: 18px; grid-template-columns: 1fr 1fr; }
+  @media (max-width: 820px) { .grid { grid-template-columns: 1fr; } }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 18px; }
+  .card h2 { margin: 0 0 10px; font-weight: 400; font-size: 1.2rem; }
+  label { display: block; font-size: .82rem; font-weight: 600; margin: 12px 0 4px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+  input, select, textarea { width: 100%; padding: 9px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--ink); font-size: .95rem; }
+  textarea { min-height: 120px; resize: vertical; }
+  input:focus, select:focus, textarea:focus, button:focus-visible { outline: 2px solid var(--gold); outline-offset: 1px; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .count { font-size: .78rem; color: var(--muted); float: right; font-weight: 400; text-transform: none; letter-spacing: 0; }
+  .btn { background: var(--gold); color: #fff; border: none; padding: 9px 16px; border-radius: 8px; cursor: pointer; font-size: .9rem; font-weight: 600; }
+  :root[data-theme="dark"] .btn { color: #14120f; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn { color: #14120f; } }
+  .btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+  .btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+  .score { display: flex; align-items: center; gap: 16px; margin-bottom: 12px; }
+  .ring { width: 84px; height: 84px; border-radius: 50%; display: grid; place-items: center; font-size: 1.6rem; font-weight: 600; background: conic-gradient(var(--c, var(--gold)) calc(var(--p, 0) * 1%), var(--line) 0); position: relative; }
+  .ring::before { content: ''; position: absolute; inset: 8px; background: var(--panel); border-radius: 50%; }
+  .ring span { position: relative; }
+  .checks { list-style: none; margin: 0; padding: 0; }
+  .checks li { display: flex; gap: 10px; padding: 8px 0; border-top: 1px solid var(--line); font-size: .92rem; }
+  .checks li:first-child { border-top: none; }
+  .dot { flex: none; width: 10px; height: 10px; border-radius: 50%; margin-top: 7px; }
+  .dot.pass { background: var(--good); } .dot.warn { background: var(--warn); } .dot.fail { background: var(--bad); } .dot.info { background: var(--muted); }
+  .checks small { display: block; color: var(--muted); }
+  .serp { background: #fff; color: #202124; border-radius: 10px; padding: 14px 16px; border: 1px solid var(--line); font-family: Arial, sans-serif; }
+  .serp.mobile { max-width: 360px; }
+  .serp .url { font-size: 12px; color: #4d5156; }
+  .serp .t { font-size: 20px; color: #1a0dab; margin: 2px 0 4px; line-height: 1.25; }
+  .serp .d { font-size: 14px; color: #4d5156; line-height: 1.5; }
+  .tabs-mini { display: flex; gap: 6px; margin-bottom: 10px; }
+  .chip { font-size: .75rem; padding: 2px 8px; border-radius: 99px; background: var(--gold-soft); color: var(--gold); font-weight: 600; white-space: nowrap; }
+  table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+  th, td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--line); }
+  th { color: var(--muted); font-size: .78rem; text-transform: uppercase; letter-spacing: .04em; }
+  pre { background: var(--code); border: 1px solid var(--line); border-radius: 8px; padding: 12px; overflow: auto; font-size: .8rem; max-height: 420px; margin: 8px 0 0; white-space: pre-wrap; word-break: break-word; font-family: ui-monospace, Menlo, Consolas, monospace; }
+  .hint { color: var(--muted); font-size: .85rem; }
+  .group h3 { margin: 18px 0 6px; font-weight: 400; font-size: 1.05rem; color: var(--gold); }
+  .group label.item { display: flex; gap: 10px; align-items: flex-start; text-transform: none; letter-spacing: 0; font-size: .92rem; color: var(--ink); font-weight: 400; margin: 6px 0; cursor: pointer; }
+  .group label.item input { width: auto; margin-top: 4px; }
+  .bar { height: 8px; background: var(--line); border-radius: 99px; overflow: hidden; margin: 8px 0 4px; }
+  .bar i { display: block; height: 100%; background: var(--gold); width: 0; transition: width .2s; }
+  .toast { position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 8px 16px; border-radius: 8px; font-size: .85rem; opacity: 0; pointer-events: none; transition: opacity .2s; }
+  .toast.show { opacity: 1; }
+  .pills { display: flex; flex-wrap: wrap; gap: 6px 14px; }
+  .pills label { display: flex; gap: 6px; align-items: center; margin: 2px 0; text-transform: none; letter-spacing: 0; font-size: .9rem; font-weight: 400; color: var(--ink); }
+  .pills input { width: auto; }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>Luxury Hideaways <span>SEO Studio</span></h1>
+    <p>Audit pages, plan keywords, generate meta tags and schema, and track launch tasks for villas, boutique retreats and private escapes. Everything runs in your browser; nothing is uploaded.</p>
+  </div>
+  <button class="btn ghost" id="themeBtn" type="button">Toggle theme</button>
+</header>
+
+<main>
+  <nav role="tablist" aria-label="Tools">
+    <button role="tab" aria-selected="true" data-tab="audit">Page Audit</button>
+    <button role="tab" aria-selected="false" data-tab="keywords">Keyword Ideas</button>
+    <button role="tab" aria-selected="false" data-tab="meta">Meta &amp; Schema</button>
+    <button role="tab" aria-selected="false" data-tab="launch">Launch Checklist</button>
+  </nav>
+
+  <!-- PAGE AUDIT -->
+  <section class="panel active" id="audit">
+    <div class="grid">
+      <div class="card">
+        <h2>Page details</h2>
+        <label for="a_kw">Target keyword</label>
+        <input id="a_kw" placeholder="e.g. luxury private villa Santorini" />
+        <label for="a_loc">Location (optional)</label>
+        <input id="a_loc" placeholder="e.g. Santorini" />
+        <label for="a_title">SEO title <span class="count" id="a_title_c"></span></label>
+        <input id="a_title" />
+        <label for="a_meta">Meta description <span class="count" id="a_meta_c"></span></label>
+        <textarea id="a_meta" style="min-height:70px"></textarea>
+        <label for="a_url">Page URL</label>
+        <input id="a_url" placeholder="https://www.example.com/villas/santorini-cliffside" />
+        <label for="a_body">Page content (plain text or HTML)</label>
+        <textarea id="a_body" style="min-height:220px" placeholder="Paste the page copy here. If you paste HTML, headings, images and links are checked too."></textarea>
+        <div class="btn-row"><button class="btn" id="a_sample" type="button">Load sample</button><button class="btn ghost" id="a_clear" type="button">Clear</button></div>
+      </div>
+      <div>
+        <div class="card">
+          <div class="score"><div class="ring" id="a_ring"><span id="a_score">0</span></div>
+            <div><strong id="a_grade">Add a keyword and content</strong><div class="hint" id="a_sum"></div></div></div>
+          <ul class="checks" id="a_checks"></ul>
+        </div>
+        <div class="card" style="margin-top:18px">
+          <h2>Search preview</h2>
+          <div class="tabs-mini"><button class="btn ghost" data-serp="desktop" type="button">Desktop</button><button class="btn ghost" data-serp="mobile" type="button">Mobile</button></div>
+          <div class="serp" id="serp"><div class="url" id="s_url"></div><div class="t" id="s_t"></div><div class="d" id="s_d"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KEYWORDS -->
+  <section class="panel" id="keywords">
+    <div class="grid">
+      <div class="card">
+        <h2>Seed inputs</h2>
+        <label for="k_dest">Destinations (comma separated)</label>
+        <input id="k_dest" value="Santorini, Amalfi Coast, Tuscany" />
+        <label>Property types</label>
+        <div class="pills" id="k_types"></div>
+        <label>Features &amp; experiences</label>
+        <div class="pills" id="k_feats"></div>
+        <label>Search intent</label>
+        <div class="pills" id="k_intents"></div>
+        <div class="btn-row"><button class="btn" id="k_go" type="button">Generate ideas</button><button class="btn ghost" id="k_copy" type="button">Copy list</button><button class="btn ghost" id="k_csv" type="button">Download CSV</button></div>
+        <p class="hint">Ideas are pattern-based, not measured. Validate volume and difficulty in Google Search Console, Google Keyword Planner or a paid tool before committing content.</p>
+      </div>
+      <div class="card">
+        <h2>Ideas <span class="chip" id="k_n">0</span></h2>
+        <div style="max-height:620px;overflow:auto"><table><thead><tr><th>Keyword</th><th>Intent</th><th>Suggested page</th></tr></thead><tbody id="k_rows"></tbody></table></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- META & SCHEMA -->
+  <section class="panel" id="meta">
+    <div class="grid">
+      <div class="card">
+        <h2>Property</h2>
+        <label for="m_name">Property name</label><input id="m_name" value="Villa Aurelia" />
+        <div class="row">
+          <div><label for="m_type">Schema type</label>
+            <select id="m_type"><option>Hotel</option><option>Resort</option><option>LodgingBusiness</option><option>VacationRental</option><option>BedAndBreakfast</option></select></div>
+          <div><label for="m_stars">Star rating (1-5)</label><input id="m_stars" type="number" min="1" max="5" value="5" /></div>
+        </div>
+        <label for="m_url">Page URL</label><input id="m_url" value="https://www.example.com/villa-aurelia" />
+        <label for="m_desc">Short description</label><textarea id="m_desc" style="min-height:80px">A private clifftop villa with an infinity pool, personal chef and sweeping Aegean views, minutes from Oia.</textarea>
+        <div class="row">
+          <div><label for="m_city">City / region</label><input id="m_city" value="Oia, Santorini" /></div>
+          <div><label for="m_country">Country code</label><input id="m_country" value="GR" maxlength="2" /></div>
+        </div>
+        <div class="row">
+          <div><label for="m_street">Street address</label><input id="m_street" placeholder="optional" /></div>
+          <div><label for="m_phone">Phone</label><input id="m_phone" placeholder="+30 ..." /></div>
+        </div>
+        <div class="row">
+          <div><label for="m_lat">Latitude</label><input id="m_lat" placeholder="36.4618" /></div>
+          <div><label for="m_lng">Longitude</label><input id="m_lng" placeholder="25.3753" /></div>
+        </div>
+        <div class="row">
+          <div><label for="m_price">Price range</label><input id="m_price" value="$$$$" /></div>
+          <div><label for="m_img">Hero image URL</label><input id="m_img" placeholder="https://.../hero.jpg" /></div>
+        </div>
+        <div class="row">
+          <div><label for="m_in">Check-in</label><input id="m_in" value="15:00" /></div>
+          <div><label for="m_out">Check-out</label><input id="m_out" value="11:00" /></div>
+        </div>
+        <label for="m_am">Amenities (comma separated)</label><input id="m_am" value="Private pool, Personal chef, Spa treatments, Airport transfer, Free Wi-Fi" />
+        <label for="m_faq">FAQs (one per line: Question | Answer)</label>
+        <textarea id="m_faq" style="min-height:90px">Is the villa private? | Yes, the villa and grounds are exclusively for your party.
+Can you arrange a private chef? | Yes, our chef creates bespoke menus on request.</textarea>
+      </div>
+      <div>
+        <div class="card"><h2>HTML head tags</h2><div class="hint">Title and description come from the Page Audit tab if filled in.</div>
+          <pre id="o_head"></pre><div class="btn-row"><button class="btn" data-copy="o_head" type="button">Copy</button></div></div>
+        <div class="card" style="margin-top:18px"><h2>JSON-LD schema</h2>
+          <pre id="o_ld"></pre><div class="btn-row"><button class="btn" data-copy="o_ld" type="button">Copy</button></div>
+          <p class="hint">Validate with Google's Rich Results Test before publishing.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LAUNCH -->
+  <section class="panel" id="launch">
+    <div class="grid">
+      <div class="card">
+        <h2>SEO launch checklist</h2>
+        <div class="bar"><i id="c_bar"></i></div><div class="hint" id="c_txt"></div>
+        <div id="c_list" class="group"></div>
+        <div class="btn-row"><button class="btn ghost" id="c_reset" type="button">Reset checklist</button></div>
+      </div>
+      <div class="card">
+        <h2>robots.txt &amp; sitemap.xml</h2>
+        <label for="t_site">Site origin</label><input id="t_site" value="https://www.example.com" />
+        <label for="t_paths">Paths (one per line)</label>
+        <textarea id="t_paths">/
+/villas
+/villas/villa-aurelia
+/experiences
+/journal
+/contact</textarea>
+        <label for="t_block">Disallow (one per line)</label>
+        <textarea id="t_block" style="min-height:70px">/admin/
+/checkout/
+/*?session=</textarea>
+        <h2 style="margin-top:16px">robots.txt</h2><pre id="t_robots"></pre><div class="btn-row"><button class="btn" data-copy="t_robots" type="button">Copy</button></div>
+        <h2 style="margin-top:16px">sitemap.xml</h2><pre id="t_sitemap"></pre><div class="btn-row"><button class="btn" data-copy="t_sitemap" type="button">Copy</button></div>
+      </div>
+    </div>
+  </section>
+</main>
+<div class="toast sans" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  function store(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
+  function toast(msg) { var t = $('toast'); t.textContent = msg; t.className = 'toast sans show'; setTimeout(function () { t.className = 'toast sans'; }, 1600); }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function copy(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(function () { toast('Copied'); }, fallback);
+    else fallback();
+    function fallback() { var ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); toast('Copied'); } catch (e) { toast('Copy failed'); } ta.remove(); }
+  }
+
+  /* ---------- theme & tabs ---------- */
+  var saved = store('lh-theme'); if (saved) document.documentElement.setAttribute('data-theme', saved);
+  $('themeBtn').onclick = function () {
+    var cur = document.documentElement.getAttribute('data-theme');
+    var isDark = cur ? cur === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var next = isDark ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next); store('lh-theme', next);
+  };
+  document.querySelectorAll('nav button').forEach(function (b) {
+    b.onclick = function () {
+      document.querySelectorAll('nav button').forEach(function (x) { x.setAttribute('aria-selected', x === b ? 'true' : 'false'); });
+      document.querySelectorAll('.panel').forEach(function (p) { p.classList.toggle('active', p.id === b.dataset.tab); });
+    };
+  });
+  document.querySelectorAll('[data-copy]').forEach(function (b) { b.onclick = function () { copy($(b.dataset.copy).textContent); }; });
+
+  /* ---------- page audit ---------- */
+  var POWER = ['exclusive', 'private', 'secluded', 'bespoke', 'handcrafted', 'tailored', 'serene', 'sanctuary', 'retreat', 'indulge', 'escape', 'intimate', 'panoramic', 'concierge', 'curated', 'personal chef', 'infinity pool', 'sunset', 'unforgettable', 'hideaway', 'refined', 'tranquil'];
+  var CTA = ['book', 'reserve', 'enquire', 'inquire', 'check availability', 'contact', 'request', 'plan your stay', 'speak to'];
+
+  function syllables(w) {
+    w = w.toLowerCase().replace(/[^a-z]/g, ''); if (!w) return 0;
+    if (w.length <= 3) return 1;
+    w = w.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/, '').replace(/^y/, '');
+    var m = w.match(/[aeiouy]{1,2}/g); return m ? m.length : 1;
+  }
+  function parseContent(raw) {
+    var out = { text: raw, h1: [], h2: 0, imgs: 0, alts: 0, internal: 0, external: 0, html: false };
+    if (!/<\/?[a-z][\s\S]*>/i.test(raw)) return out;
+    out.html = true;
+    var doc = new DOMParser().parseFromString(raw, 'text/html');
+    doc.querySelectorAll('script,style,noscript').forEach(function (n) { n.remove(); });
+    doc.querySelectorAll('h1').forEach(function (h) { out.h1.push(h.textContent.trim()); });
+    out.h2 = doc.querySelectorAll('h2').length;
+    doc.querySelectorAll('img').forEach(function (i) { out.imgs++; if ((i.getAttribute('alt') || '').trim()) out.alts++; });
+    doc.querySelectorAll('a[href]').forEach(function (a) { var h = a.getAttribute('href'); if (/^https?:\/\//i.test(h)) out.external++; else if (h && h.charAt(0) !== '#' && !/^(mailto|tel):/i.test(h)) out.internal++; });
+    out.text = (doc.body.textContent || '').replace(/\s+/g, ' ').trim();
+    return out;
+  }
+  function countOcc(hay, needle) { if (!needle) return 0; var n = 0, i = 0; hay = hay.toLowerCase(); needle = needle.toLowerCase(); while ((i = hay.indexOf(needle, i)) !== -1) { n++; i += needle.length; } return n; }
+
+  var serpMode = 'desktop';
+  function renderSerp() {
+    var t = $('a_title').value.trim() || 'Your page title appears here';
+    var d = $('a_meta').value.trim() || 'Your meta description appears here. Write a compelling summary of the stay, location and what makes it exclusive.';
+    var u = $('a_url').value.trim() || 'https://www.example.com/page';
+    var maxT = serpMode === 'mobile' ? 58 : 60, maxD = serpMode === 'mobile' ? 120 : 160;
+    $('s_t').textContent = t.length > maxT ? t.slice(0, maxT - 1).trim() + '…' : t;
+    $('s_d').textContent = d.length > maxD ? d.slice(0, maxD - 1).trim() + '…' : d;
+    $('s_url').textContent = u.replace(/^https?:\/\//, '').replace(/\//g, ' › ').replace(/ › $/, '');
+    $('serp').className = 'serp' + (serpMode === 'mobile' ? ' mobile' : '');
+  }
+  document.querySelectorAll('[data-serp]').forEach(function (b) { b.onclick = function () { serpMode = b.dataset.serp; renderSerp(); }; });
+
+  function runAudit() {
+    var kw = $('a_kw').value.trim(), loc = $('a_loc').value.trim(), title = $('a_title').value.trim(), meta = $('a_meta').value.trim(), url = $('a_url').value.trim();
+    var p = parseContent($('a_body').value);
+    var text = p.text, lower = text.toLowerCase(), kwl = kw.toLowerCase();
+    var words = text.split(/\s+/).filter(Boolean), wc = words.length;
+    $('a_title_c').textContent = title.length + ' / 60';
+    $('a_meta_c').textContent = meta.length + ' / 160';
+    renderSerp();
+
+    var checks = [], pts = 0, max = 0;
+    function add(w, status, msg, tip) { max += w; pts += status === 'pass' ? w : status === 'warn' ? w * 0.5 : 0; checks.push({ s: status, m: msg, t: tip }); }
+    function info(msg, tip) { checks.push({ s: 'info', m: msg, t: tip }); }
+
+    if (!kw) { info('Enter a target keyword to unlock keyword checks.'); }
+    // title
+    if (!title) add(10, 'fail', 'No SEO title', 'Write a 50-60 character title.');
+    else if (title.length < 30) add(10, 'warn', 'Title is short (' + title.length + ' chars)', 'Use 50-60 characters to earn more of the result.');
+    else if (title.length <= 60) add(10, 'pass', 'Title length is ideal (' + title.length + ' chars)');
+    else add(10, 'warn', 'Title may be truncated (' + title.length + ' chars)', 'Keep it near 60 characters.');
+    if (kw && title) add(10, title.toLowerCase().indexOf(kwl) !== -1 ? 'pass' : 'fail', title.toLowerCase().indexOf(kwl) !== -1 ? 'Keyword in title' : 'Keyword missing from title', 'Place it near the start of the title.');
+    // meta
+    if (!meta) add(8, 'fail', 'No meta description', 'Write 120-160 characters with a clear enquiry prompt.');
+    else if (meta.length < 120) add(8, 'warn', 'Meta description is short (' + meta.length + ' chars)', 'Aim for 120-160 characters.');
+    else if (meta.length <= 160) add(8, 'pass', 'Meta description length is ideal (' + meta.length + ' chars)');
+    else add(8, 'warn', 'Meta description may be cut (' + meta.length + ' chars)', 'Trim to 160 characters.');
+    if (kw && meta) add(5, meta.toLowerCase().indexOf(kwl) !== -1 ? 'pass' : 'warn', meta.toLowerCase().indexOf(kwl) !== -1 ? 'Keyword in meta description' : 'Keyword not in meta description', 'Echoing the query can lift click-through.');
+    // url
+    if (url) {
+      var slug = url.replace(/^https?:\/\/[^/]+/, '').split('?')[0];
+      var kwslug = kwl.replace(/[^a-z0-9]+/g, '-');
+      var ok = slug.length <= 75 && !/[A-Z_]/.test(slug);
+      add(4, ok ? 'pass' : 'warn', ok ? 'URL is short and clean' : 'URL is long or has capitals/underscores', 'Use lowercase, hyphenated slugs.');
+      if (kw) add(3, slug.indexOf(kwslug) !== -1 || kwslug.split('-').some(function (w) { return w.length > 3 && slug.indexOf(w) !== -1; }) ? 'pass' : 'warn', 'URL slug relevance to keyword', 'Include the main destination or property word.');
+    }
+    // content
+    if (!wc) { add(10, 'fail', 'No page content to analyse', 'Paste your page copy above.'); }
+    else {
+      if (wc >= 600) add(10, 'pass', 'Content depth: ' + wc + ' words');
+      else if (wc >= 300) add(10, 'warn', 'Content is thin: ' + wc + ' words', 'Luxury buyers research heavily; aim for 600+ words on key pages.');
+      else add(10, 'fail', 'Very thin content: ' + wc + ' words', 'Add story, rooms, location, dining and FAQs.');
+      if (kw) {
+        var first = words.slice(0, 100).join(' ').toLowerCase();
+        add(8, first.indexOf(kwl) !== -1 ? 'pass' : 'fail', first.indexOf(kwl) !== -1 ? 'Keyword in first 100 words' : 'Keyword not in first 100 words', 'Mention it in the opening paragraph.');
+        var occ = countOcc(lower, kwl), dens = occ * kw.split(/\s+/).length / wc * 100;
+        if (occ === 0) add(8, 'fail', 'Keyword never appears in content', 'Use it naturally 3-6 times.');
+        else if (dens > 3) add(8, 'warn', 'Keyword density high (' + dens.toFixed(1) + '%)', 'Vary with synonyms: retreat, estate, sanctuary.');
+        else add(8, 'pass', 'Keyword density healthy (' + dens.toFixed(1) + '%, ' + occ + ' uses)');
+      }
+      if (loc) { var lo = countOcc(lower, loc); add(5, lo >= 3 ? 'pass' : lo >= 1 ? 'warn' : 'fail', 'Location "' + loc + '" mentioned ' + lo + '×', 'Name the destination, nearby landmarks and travel times.'); }
+      var sent = Math.max(1, (text.match(/[.!?]+(\s|$)/g) || []).length), syl = 0;
+      words.forEach(function (w) { syl += syllables(w); });
+      var fre = 206.835 - 1.015 * (wc / sent) - 84.6 * (syl / wc);
+      add(5, fre >= 45 ? 'pass' : fre >= 30 ? 'warn' : 'fail', 'Readability (Flesch): ' + Math.round(fre), fre < 45 ? 'Shorten sentences; elegant need not mean dense.' : undefined);
+      var pw = POWER.filter(function (w) { return lower.indexOf(w) !== -1; });
+      add(5, pw.length >= 4 ? 'pass' : pw.length >= 2 ? 'warn' : 'fail', 'Luxury language: ' + pw.length + ' signature terms' + (pw.length ? ' (' + pw.slice(0, 4).join(', ') + ')' : ''), 'Weave in sensory, exclusive and service-led phrases.');
+      var cta = CTA.filter(function (w) { return lower.indexOf(w) !== -1; });
+      add(5, cta.length ? 'pass' : 'fail', cta.length ? 'Call to action present' : 'No call to action found', 'Add "Check availability" or "Enquire".');
+    }
+    // html-only
+    if (p.html) {
+      add(6, p.h1.length === 1 ? 'pass' : 'fail', p.h1.length === 1 ? 'Exactly one H1' : p.h1.length + ' H1 tags found', 'Use a single descriptive H1.');
+      if (kw && p.h1.length) add(5, p.h1.join(' ').toLowerCase().indexOf(kwl) !== -1 ? 'pass' : 'warn', p.h1.join(' ').toLowerCase().indexOf(kwl) !== -1 ? 'Keyword in H1' : 'Keyword not in H1', 'Mirror the main keyword in the H1.');
+      add(3, p.h2 >= 3 ? 'pass' : 'warn', p.h2 + ' H2 subheadings', 'Structure with 3+ sections: rooms, dining, location, FAQs.');
+      if (p.imgs) add(5, p.alts === p.imgs ? 'pass' : 'warn', p.alts + '/' + p.imgs + ' images have alt text', 'Describe each photo, e.g. "Infinity pool at sunset".');
+      else add(3, 'warn', 'No images found', 'Luxury pages convert on imagery.');
+      add(4, p.internal >= 3 ? 'pass' : 'warn', p.internal + ' internal links', 'Link to rooms, experiences, destination guides.');
+      info(p.external + ' external links', 'Cite authorities (tourism boards, awards).');
+    } else if (wc) {
+      info('Paste HTML to also check H1, H2s, image alt text and links.');
+    }
+
+    var score = max ? Math.round(pts / max * 100) : 0;
+    $('a_score').textContent = score;
+    var ring = $('a_ring'); ring.style.setProperty('--p', score);
+    ring.style.setProperty('--c', score >= 80 ? 'var(--good)' : score >= 55 ? 'var(--warn)' : 'var(--bad)');
+    $('a_grade').textContent = !max || (!kw && !wc) ? 'Add a keyword and content' : score >= 80 ? 'Strong page' : score >= 55 ? 'Good foundation, room to improve' : 'Needs work';
+    var fails = checks.filter(function (c) { return c.s === 'fail'; }).length, warns = checks.filter(function (c) { return c.s === 'warn'; }).length;
+    $('a_sum').textContent = fails + ' to fix · ' + warns + ' to improve';
+    $('a_checks').innerHTML = checks.map(function (c) { return '<li class="sans"><span class="dot ' + c.s + '"></span><div>' + esc(c.m) + (c.t && c.s !== 'pass' ? '<small>' + esc(c.t) + '</small>' : '') + '</div></li>'; }).join('');
+    refreshMeta();
+  }
+  ['a_kw', 'a_loc', 'a_title', 'a_meta', 'a_url', 'a_body'].forEach(function (id) { $(id).addEventListener('input', runAudit); });
+  $('a_clear').onclick = function () { ['a_kw', 'a_loc', 'a_title', 'a_meta', 'a_url', 'a_body'].forEach(function (id) { $(id).value = ''; }); runAudit(); };
+  $('a_sample').onclick = function () {
+    $('a_kw').value = 'luxury private villa Santorini'; $('a_loc').value = 'Santorini';
+    $('a_title').value = 'Luxury Private Villa Santorini | Villa Aurelia';
+    $('a_meta').value = 'Escape to a luxury private villa in Santorini with infinity pool, personal chef and caldera views. Enquire for exclusive dates.';
+    $('a_url').value = 'https://www.example.com/villas/luxury-private-villa-santorini';
+    $('a_body').value = '<h1>Luxury Private Villa in Santorini</h1><p>Villa Aurelia is a luxury private villa in Santorini, a secluded sanctuary perched above the caldera. Wake to panoramic sunrises, slip into the infinity pool and let our concierge curate every detail of your escape.</p><h2>The villa</h2><p>Four bespoke suites open onto terraces carved into the cliff. Each is tailored for intimate privacy, with handcrafted furnishings and sea views.</p><img src="pool.jpg" alt="Infinity pool at sunset"><img src="suite.jpg"><h2>Dining</h2><p>Your personal chef prepares tranquil breakfasts and candlelit dinners using island produce. <a href="/experiences">Explore experiences</a>, <a href="/journal/santorini-guide">read our Santorini guide</a> or <a href="/villas">see all villas</a>.</p><h2>Location</h2><p>Oia is ten minutes away. Santorini airport is a twenty minute private transfer. Check availability or enquire to reserve your dates.</p>';
+    runAudit();
+  };
+
+  /* ---------- keywords ---------- */
+  var TYPES = ['villa', 'private villa', 'boutique hotel', 'retreat', 'hideaway', 'chalet', 'treehouse', 'private island', 'castle', 'eco lodge', 'resort'];
+  var FEATS = ['private pool', 'infinity pool', 'private chef', 'spa', 'beachfront', 'ocean view', 'adults only', 'honeymoon', 'family friendly', 'pet friendly', 'wellness', 'ski in ski out', 'wine tasting', 'yoga'];
+  var INTENTS = { transactional: 'Transactional', commercial: 'Commercial', informational: 'Informational' };
+  function pills(id, items, checked, name) {
+    $(id).innerHTML = items.map(function (x, i) { return '<label><input type="checkbox" name="' + name + '" value="' + esc(x) + '"' + (checked.indexOf(i) !== -1 ? ' checked' : '') + '>' + esc(x) + '</label>'; }).join('');
+  }
+  pills('k_types', TYPES, [0, 1, 2, 3, 4], 'kt');
+  pills('k_feats', FEATS, [0, 1, 2, 5, 6], 'kf');
+  $('k_intents').innerHTML = Object.keys(INTENTS).map(function (k) { return '<label><input type="checkbox" name="ki" value="' + k + '" checked>' + INTENTS[k] + '</label>'; }).join('');
+  function vals(name) { return Array.prototype.map.call(document.querySelectorAll('input[name="' + name + '"]:checked'), function (i) { return i.value; }); }
+  var ideas = [];
+  function genKeywords() {
+    var dests = $('k_dest').value.split(',').map(function (s) { return s.trim(); }).filter(Boolean);
+    var types = vals('kt'), feats = vals('kf'), ints = vals('ki'), seen = {}; ideas = [];
+    function push(kw, intent, page) { var k = kw.toLowerCase().replace(/\s+/g, ' ').trim(); if (seen[k] || ideas.length >= 400) return; seen[k] = 1; ideas.push({ kw: k, intent: INTENTS[intent], page: page }); }
+    dests.forEach(function (d) {
+      types.forEach(function (t) {
+        if (ints.indexOf('commercial') !== -1) { push('luxury ' + t + ' ' + d, 'commercial', d + ' ' + t + ' landing page'); push('best ' + t + ' in ' + d, 'commercial', 'Listicle / destination guide'); push('luxury ' + t + ' in ' + d + ' reviews', 'commercial', 'Reviews & testimonials'); }
+        if (ints.indexOf('transactional') !== -1) { push('book ' + t + ' ' + d, 'transactional', 'Booking / availability page'); push(t + ' ' + d + ' for rent', 'transactional', d + ' ' + t + ' listings'); push(d + ' luxury ' + t + ' price per night', 'transactional', 'Rates page'); }
+        feats.forEach(function (f) {
+          if (ints.indexOf('commercial') !== -1) push('luxury ' + t + ' ' + d + ' with ' + f, 'commercial', 'Feature landing page: ' + f);
+          if (ints.indexOf('transactional') !== -1) push(f + ' ' + t + ' ' + d, 'transactional', 'Feature landing page: ' + f);
+        });
+      });
+      if (ints.indexOf('informational') !== -1) {
+        ['best time to visit ' + d, 'things to do in ' + d + ' for couples', d + ' travel guide luxury', 'how many days in ' + d, 'where to stay in ' + d + ' luxury', d + ' honeymoon itinerary', 'is ' + d + ' worth visiting'].forEach(function (k) { push(k, 'informational', 'Journal / destination guide'); });
+      }
+    });
+    ideas.sort(function (a, b) { return a.kw.split(' ').length - b.kw.split(' ').length || (a.kw < b.kw ? -1 : 1); });
+    $('k_n').textContent = ideas.length;
+    $('k_rows').innerHTML = ideas.map(function (i) { return '<tr><td>' + esc(i.kw) + '</td><td><span class="chip">' + i.intent + '</span></td><td class="hint">' + esc(i.page) + '</td></tr>'; }).join('') || '<tr><td colspan="3" class="hint">Add a destination and pick at least one property type.</td></tr>';
+  }
+  $('k_go').onclick = genKeywords;
+  $('k_copy').onclick = function () { if (ideas.length) copy(ideas.map(function (i) { return i.kw; }).join('\n')); else toast('Generate ideas first'); };
+  $('k_csv').onclick = function () {
+    if (!ideas.length) return toast('Generate ideas first');
+    function q(s) { s = String(s); if (/^[=+\-@\t\r]/.test(s)) s = "'" + s; return '"' + s.replace(/"/g, '""') + '"'; }
+    var csv = 'keyword,intent,suggested_page\n' + ideas.map(function (i) { return [q(i.kw), q(i.intent), q(i.page)].join(','); }).join('\n');
+    var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' })); a.download = 'luxury-hideaway-keywords.csv'; document.body.appendChild(a); a.click(); a.remove();
+  };
+
+  /* ---------- meta & schema ---------- */
+  function refreshMeta() {
+    var name = $('m_name').value.trim(), url = $('m_url').value.trim(), desc = $('m_desc').value.trim();
+    var title = $('a_title').value.trim() || (name ? name + ' | ' + ($('m_city').value.trim() || 'Luxury Hideaway') : '');
+    var md = $('a_meta').value.trim() || desc;
+    var img = $('m_img').value.trim();
+    var head = ['<title>' + esc(title) + '</title>', '<meta name="description" content="' + esc(md) + '">', url ? '<link rel="canonical" href="' + esc(url) + '">' : '', '<meta name="robots" content="index, follow, max-image-preview:large">',
+      '<meta property="og:type" content="website">', '<meta property="og:title" content="' + esc(title) + '">', '<meta property="og:description" content="' + esc(md) + '">', url ? '<meta property="og:url" content="' + esc(url) + '">' : '', img ? '<meta property="og:image" content="' + esc(img) + '">' : '',
+      '<meta name="twitter:card" content="summary_large_image">', '<meta name="twitter:title" content="' + esc(title) + '">', '<meta name="twitter:description" content="' + esc(md) + '">'].filter(Boolean);
+    $('o_head').textContent = head.join('\n');
+
+    var ld = { '@context': 'https://schema.org', '@type': $('m_type').value, name: name, url: url || undefined, description: desc || undefined };
+    if (img) ld.image = [img];
+    if ($('m_price').value.trim()) ld.priceRange = $('m_price').value.trim();
+    if ($('m_phone').value.trim()) ld.telephone = $('m_phone').value.trim();
+    var stars = parseInt($('m_stars').value, 10);
+    if (stars >= 1 && stars <= 5 && ['Hotel', 'Resort', 'LodgingBusiness', 'BedAndBreakfast'].indexOf(ld['@type']) !== -1) ld.starRating = { '@type': 'Rating', ratingValue: stars };
+    var addr = { '@type': 'PostalAddress' };
+    if ($('m_street').value.trim()) addr.streetAddress = $('m_street').value.trim();
+    if ($('m_city').value.trim()) addr.addressLocality = $('m_city').value.trim();
+    if ($('m_country').value.trim()) addr.addressCountry = $('m_country').value.trim().toUpperCase();
+    ld.address = addr;
+    var lat = parseFloat($('m_lat').value), lng = parseFloat($('m_lng').value);
+    if (isFinite(lat) && isFinite(lng)) ld.geo = { '@type': 'GeoCoordinates', latitude: lat, longitude: lng };
+    if ($('m_in').value.trim()) ld.checkinTime = $('m_in').value.trim();
+    if ($('m_out').value.trim()) ld.checkoutTime = $('m_out').value.trim();
+    var am = $('m_am').value.split(',').map(function (s) { return s.trim(); }).filter(Boolean);
+    if (am.length) ld.amenityFeature = am.map(function (a) { return { '@type': 'LocationFeatureSpecification', name: a, value: true }; });
+    var graph = [ld];
+    var faqs = $('m_faq').value.split('\n').map(function (l) { var i = l.indexOf('|'); return i > 0 ? [l.slice(0, i).trim(), l.slice(i + 1).trim()] : null; }).filter(function (f) { return f && f[0] && f[1]; });
+    if (faqs.length) graph.push({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map(function (f) { return { '@type': 'Question', name: f[0], acceptedAnswer: { '@type': 'Answer', text: f[1] } }; }) });
+    $('o_ld').textContent = graph.map(function (g) {
+      return '<script type="application/ld+json">\n' + JSON.stringify(g, null, 2).replace(/</g, '\\u003c') + '\n<\/script>';
+    }).join('\n');
+  }
+  ['m_name', 'm_type', 'm_stars', 'm_url', 'm_desc', 'm_city', 'm_country', 'm_street', 'm_phone', 'm_lat', 'm_lng', 'm_price', 'm_img', 'm_in', 'm_out', 'm_am', 'm_faq'].forEach(function (id) { $(id).addEventListener('input', refreshMeta); });
+
+  /* ---------- launch checklist ---------- */
+  var LIST = {
+    'Technical foundation': ['Site served over HTTPS with www/non-www redirect', 'Core Web Vitals pass on mobile (LCP < 2.5s)', 'Hero images compressed (WebP/AVIF) with width/height set', 'XML sitemap submitted in Google Search Console', 'robots.txt does not block key pages or CSS/JS', 'Canonical tags on every page', 'Mobile-first responsive layout tested on real devices'],
+    'On-page': ['One unique title and meta description per page', 'Single descriptive H1 per page', 'Descriptive alt text on all property photos', 'Internal links between destinations, villas and experiences', 'Clear "Check availability" CTA above the fold', 'FAQ section with FAQ schema on key pages'],
+    'Structured data': ['Hotel / VacationRental schema on property pages', 'Organization schema with logo and social profiles', 'BreadcrumbList schema', 'Review / AggregateRating markup (only for genuine on-site reviews)'],
+    'Local & authority': ['Google Business Profile claimed and complete', 'Consistent name, address and phone across listings', 'Listed on Tripadvisor, Booking, Relais & Châteaux or similar', 'Features sought from travel press and luxury blogs', 'Reviews strategy for guests after checkout'],
+    'Content': ['Destination guides for each location you serve', 'Experience pages (dining, spa, excursions)', 'Seasonal pages (honeymoon, winter escape, summer)', 'Journal publishing calendar for informational keywords'],
+    'Tracking': ['Google Search Console verified', 'GA4 with booking-enquiry conversion events', 'Rank tracking for priority keywords', 'Monthly SEO review scheduled']
+  };
+  var state = {}; try { state = JSON.parse(store('lh-check') || '{}') || {}; } catch (e) { state = {}; }
+  function renderList() {
+    var total = 0, done = 0, html = '';
+    Object.keys(LIST).forEach(function (g) {
+      html += '<h3>' + esc(g) + '</h3>';
+      LIST[g].forEach(function (item) { total++; var on = !!state[item]; if (on) done++; html += '<label class="item"><input type="checkbox" data-item="' + esc(item) + '"' + (on ? ' checked' : '') + '><span>' + esc(item) + '</span></label>'; });
+    });
+    $('c_list').innerHTML = html;
+    $('c_bar').style.width = Math.round(done / total * 100) + '%';
+    $('c_txt').textContent = done + ' of ' + total + ' complete';
+  }
+  $('c_list').addEventListener('change', function (e) { var it = e.target.getAttribute('data-item'); if (!it) return; if (e.target.checked) state[it] = true; else delete state[it]; store('lh-check', JSON.stringify(state)); renderList(); });
+  $('c_reset').onclick = function () { state = {}; store('lh-check', '{}'); renderList(); };
+
+  function refreshTech() {
+    var site = $('t_site').value.trim().replace(/\/+$/, '');
+    var paths = $('t_paths').value.split('\n').map(function (s) { return s.trim(); }).filter(Boolean);
+    var block = $('t_block').value.split('\n').map(function (s) { return s.trim(); }).filter(Boolean);
+    $('t_robots').textContent = 'User-agent: *\n' + (block.length ? block.map(function (b) { return 'Disallow: ' + b; }).join('\n') : 'Disallow:') + '\n\nSitemap: ' + site + '/sitemap.xml';
+    var today = new Date().toISOString().slice(0, 10);
+    $('t_sitemap').textContent = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + paths.map(function (p) {
+      if (p.charAt(0) !== '/') p = '/' + p;
+      return '  <url>\n    <loc>' + esc(site + p) + '</loc>\n    <lastmod>' + today + '</lastmod>\n    <priority>' + (p === '/' ? '1.0' : '0.8') + '</priority>\n  </url>';
+    }).join('\n') + '\n</urlset>';
+  }
+  ['t_site', 't_paths', 't_block'].forEach(function (id) { $(id).addEventListener('input', refreshTech); });
+
+  /* ---------- init ---------- */
+  runAudit(); genKeywords(); renderList(); refreshTech();
+})();
+</script>
+</body>
+</html>
